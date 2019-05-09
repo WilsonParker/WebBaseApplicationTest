@@ -16,7 +16,7 @@ import java.lang.NullPointerException
 
 abstract class AbstractImageDownloadService : Service() {
     companion object {
-        const val KEY_URL = "imageUrl"
+        const val KEY_URL = AbstractDefaultNotificationModel.Key.IMAGE_URL
         const val KEY_REMOTE_MESSAGE = "msg"
         const val _REQUEST_CODE = 0
         private const val CHANNEL_ID= 1

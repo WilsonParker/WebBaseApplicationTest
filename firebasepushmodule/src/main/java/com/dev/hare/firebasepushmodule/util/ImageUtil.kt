@@ -1,7 +1,11 @@
 package com.dev.hare.firebasepushmodule.util
 
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
+import android.os.Build
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -9,7 +13,7 @@ import java.net.URL
 import java.net.URLDecoder
 
 open class ImageUtil {
-    private val _ConnectTimeOut = 60 /* Second */ * 1000
+    private val _connectTimeOut = 60 /* Second */ * 1000
 
     /**
      * NotificationBuilder 를 생성
@@ -22,8 +26,8 @@ open class ImageUtil {
         val inputStream: InputStream
         val url = URL(URLDecoder.decode(strUrl, "EUC-KR"))
         val connection = (url.openConnection() as HttpURLConnection).apply {
-            connectTimeout = _ConnectTimeOut
-            readTimeout = _ConnectTimeOut
+            connectTimeout = _connectTimeOut
+            readTimeout = _connectTimeOut
             requestMethod = "GET"
             doInput = true
             //        connection.setInstanceFollowRedirects(true);
@@ -49,6 +53,14 @@ open class ImageUtil {
         val url = URL(strUrl)
         bitmap = BitmapFactory.decodeStream(url.content as InputStream)
         return bitmap
+    }
+
+    fun getDrawableWithID(context: Context, id:Int, theme: Resources.Theme?): Drawable {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context.resources.getDrawable(id, theme)
+        } else {
+            context.resources.getDrawable(id)
+        }
     }
 
 }

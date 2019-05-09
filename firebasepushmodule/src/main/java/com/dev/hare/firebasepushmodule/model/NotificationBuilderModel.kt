@@ -113,6 +113,12 @@ class NotificationBuilderModel(context: Context, channelId: String) {
         return this
     }
 
+    fun setSmallIcon(icon: Int): NotificationBuilderModel {
+        this.compatBuilder?.setSmallIcon(icon)
+        this.builder?.setSmallIcon(icon)
+        return this
+    }
+
     fun setSmallIcon(@DrawableRes icon: Int, level: Int): NotificationBuilderModel {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.builder?.setSmallIcon(icon, level)
@@ -124,6 +130,12 @@ class NotificationBuilderModel(context: Context, channelId: String) {
     fun setContentTitle(text: CharSequence): NotificationBuilderModel {
         this.builder?.setContentTitle(text)
         this.compatBuilder?.setContentTitle(text)
+        return this
+    }
+
+    fun setContentText(text: CharSequence): NotificationBuilderModel {
+        this.compatBuilder?.setContentText(text)
+        this.builder?.setContentText(text)
         return this
     }
 
@@ -457,16 +469,6 @@ class NotificationBuilderModel(context: Context, channelId: String) {
      * START
      * =================================================================================================================
      */
-
-    fun setSmallIcon(icon: Int): NotificationBuilderModel {
-        this.compatBuilder?.setSmallIcon(icon)
-        return this
-    }
-
-    fun setContentText(text: CharSequence): NotificationBuilderModel {
-        this.compatBuilder?.setContentText(text)
-        return this
-    }
 
     fun setTicker(tickerText: CharSequence): NotificationBuilderModel {
         this.compatBuilder?.setTicker(tickerText)

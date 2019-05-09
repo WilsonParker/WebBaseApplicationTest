@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "863002581406",
+    "firebase_url": "https://webbasetemplateapplicationtest.firebaseio.com",
+    "project_id": "webbasetemplateapplicationtest",
+    "storage_bucket": "webbasetemplateapplicationtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863002581406:android:820c0012272158aa",
+        "android_client_info": {
+          "package_name": "com.dev.hare.webbaseapplicationtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863002581406-1mifn8e3jie2smqqbke20bbsea1lsshv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD39d42X53PDCB4jeoajSJPRf7EkuGD0vE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863002581406-1mifn8e3jie2smqqbke20bbsea1lsshv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

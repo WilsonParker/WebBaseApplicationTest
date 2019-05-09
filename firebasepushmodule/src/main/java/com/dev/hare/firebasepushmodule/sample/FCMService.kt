@@ -18,8 +18,9 @@ class FCMService : AbstractImageDownloadService() {
         var pendingIntent = createDefaultPendingIntent(MainActivity::class.java)
         var dataModel = NotificationDataModel(this, _channelID, _channelName, data)
         var builderModel = NotificationBuilderModel(this, _channelID).apply {
-            dataModel.title?.let { setContentTitle(it) }
-            dataModel.content?.let { setContentText(it) }
+            // dataModel.title?.let { setContentTitle(it) }
+            // dataModel.content?.let { setContentText(it) }
+            // setSubText()
             setSmallIcon(R.mipmap.ic_launcher)
             setAutoCancel(true)
             setPriority(Notification.PRIORITY_MAX)
@@ -32,7 +33,7 @@ class FCMService : AbstractImageDownloadService() {
         return object : ImageUtilUsingThread.OnImageLoadCompleteListener {
             override fun onComplete(bitmap: Bitmap?) {
                 model?.run {
-                    img = bitmap
+                    pictureStyleModel.bigPicture = bitmap
                     runNotification()
                     notifyStop()
                 }

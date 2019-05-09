@@ -10,7 +10,7 @@ class NotificationDataModel(
     val context: Context,
     val channelID: String = "channelID",
     val channelName: String = "channelName",
-    val data: Map<String, String>? = null
+    data: Map<String, String>? = null
 ) {
 
     var title: String? = null
@@ -28,11 +28,11 @@ class NotificationDataModel(
     }
 
     fun bindData(data: Map<String, String>) {
-        this.title = data[AbstractDefaultNotificationModel.Key.TITLE.toString()]
-        this.content = data[AbstractDefaultNotificationModel.Key.CONTENT.toString()]
-        this.imageUrl = data[AbstractDefaultNotificationModel.Key.IMAGE_URL.toString()]
-        this.link = data[AbstractDefaultNotificationModel.Key.LINK.toString()]
-        this.pushType = data[AbstractDefaultNotificationModel.Key.PUSH_TYPE.toString()]
+        this.title = data[AbstractDefaultNotificationModel.Key.TITLE]
+        this.content = data[AbstractDefaultNotificationModel.Key.CONTENT]
+        this.imageUrl = data[AbstractDefaultNotificationModel.Key.IMAGE_URL]
+        this.link = data[AbstractDefaultNotificationModel.Key.LINK]
+        this.pushType = data[AbstractDefaultNotificationModel.Key.PUSH_TYPE]
     }
 
 }

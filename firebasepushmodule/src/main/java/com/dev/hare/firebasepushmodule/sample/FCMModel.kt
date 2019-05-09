@@ -20,9 +20,9 @@ class FCMModel(
 ) :
     AbstractDefaultNotificationModel(
         context,
-        dataModel,
         builderModel,
         pendingIntent,
+        dataModel,
         NotificationBigTextStyleModel().apply {
             bigContentTitle = dataModel.title
             bigText = dataModel.content

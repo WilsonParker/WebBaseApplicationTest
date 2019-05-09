@@ -1,5 +1,7 @@
 package com.dev.hare.firebasepushmodule
 
+import android.util.Log
+import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -11,7 +13,8 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun testEnum() {
+        System.out.println(AbstractDefaultNotificationModel.PushType.valueOf("TXT"))
+        System.out.println(AbstractDefaultNotificationModel.PushType.valueOf("TXT") == AbstractDefaultNotificationModel.PushType.TXT)
     }
 }
