@@ -12,9 +12,9 @@ class IntroActivity : BaseIntroActivity() {
     override val introImageID: Int
         get() = R.drawable.intro
     override val launchTimeOut: Long
-        get() = 2000
+        get() = 500
     override val splashTimeOut: Long
-        get() = 10000
+        get() = 2000
 
     override fun onCreateInit(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_intro)

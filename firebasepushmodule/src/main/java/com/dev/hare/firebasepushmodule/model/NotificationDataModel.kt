@@ -2,7 +2,7 @@ package com.dev.hare.firebasepushmodule.model
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
 import com.dev.hare.firebasepushmodule.model.abstracts.AbstractNotificationBigStyleModel
 

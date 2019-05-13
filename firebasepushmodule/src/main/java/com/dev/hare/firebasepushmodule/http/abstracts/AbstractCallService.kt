@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 abstract class AbstractCallService {
     abstract val baseUrl: String
     protected val retrofitCallableClass = PushCallable::class.java
-    val pushService: PushCallable
+    private val pushService: PushCallable
 
     private val retrofit: Retrofit
 

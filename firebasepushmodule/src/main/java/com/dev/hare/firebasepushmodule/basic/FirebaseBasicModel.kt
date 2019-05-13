@@ -1,18 +1,16 @@
-package com.dev.hare.firebasepushmodule.sample
+package com.dev.hare.firebasepushmodule.basic
 
 import android.app.*
 import android.content.Context
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
-import com.dev.hare.firebasepushmodule.R
+import androidx.annotation.RequiresApi
 import com.dev.hare.firebasepushmodule.model.NotificationBigPictureStyleModel
 import com.dev.hare.firebasepushmodule.model.NotificationBigTextStyleModel
 import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
 import com.dev.hare.firebasepushmodule.model.NotificationDataModel
 import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
 
-class FCMModel(
+class FirebaseBasicModel(
     context: Context,
     dataModel: NotificationDataModel,
     builderModel: NotificationBuilderModel,

@@ -1,8 +1,8 @@
 package com.dev.hare.webbaseapplicationtest
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import com.dev.hare.firebasepushmodule.sample.FCMUtil
+import com.dev.hare.firebasepushmodule.util.FirebaseUtil
+import com.dev.hare.webbaseapplicationtest.firebase.FCMHttpService
 import com.dev.hare.webbasetemplatemodule.activity.BaseIntroActivity
 import com.dev.hare.webbasetemplatemodule.activity.BaseMainActivity
 
@@ -12,8 +12,11 @@ class MainActivity : BaseMainActivity() {
 
     override fun onCreateInit(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)
-        FCMUtil.init(this)
-        FCMUtil.getToken()
-    }
 
+        FirebaseUtil.getToken(object : FirebaseUtil.OnGetTokenSuccessListener {
+            override fun onSuccess(token: String) {
+                FCMHttpService.insertToken(token, "")
+            }
+        })
+    }
 }

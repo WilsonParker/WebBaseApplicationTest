@@ -2,8 +2,8 @@ package com.dev.hare.firebasepushmodule.model.interfaces
 
 import android.app.*
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import kotlin.reflect.KClass
 
 interface NotificationBuildable {

@@ -5,6 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 abstract class AbstractFirebaseMessagingServive : FirebaseMessagingService() {
+    protected abstract val serviceClass: Class<*>
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         if (remoteMessage != null && remoteMessage.data != null && !remoteMessage.data.isEmpty()) {
@@ -20,6 +21,6 @@ abstract class AbstractFirebaseMessagingServive : FirebaseMessagingService() {
      * @Author : Hare
      * @Updated : 19.3.27
      */
-    protected abstract fun createIntent(remoteMessage: RemoteMessage) : Intent
+    protected abstract fun createIntent(remoteMessage: RemoteMessage): Intent
 
 }

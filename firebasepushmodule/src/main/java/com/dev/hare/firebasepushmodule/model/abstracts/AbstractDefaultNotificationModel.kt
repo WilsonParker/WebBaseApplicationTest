@@ -4,8 +4,8 @@ import android.app.*
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.model.NotificationBigPictureStyleModel
 import com.dev.hare.firebasepushmodule.model.NotificationBigTextStyleModel
 import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel

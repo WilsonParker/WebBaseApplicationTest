@@ -3,7 +3,6 @@ package com.dev.hare.webbasetemplatemodule.activity
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -16,7 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
-abstract class BaseIntroActivity : AppCompatActivity() {
+abstract class BaseIntroActivity : BaseActivity() {
     protected abstract val introImageID: Int
     protected abstract val imageUrl: String
     protected abstract val launchTimeOut: Long
@@ -32,7 +31,7 @@ abstract class BaseIntroActivity : AppCompatActivity() {
     private fun init() {
         val options = RequestOptions()
                 .centerCrop()
-                .placeholder(introImageID)
+                // .placeholder(introImageID)
                 .error(introImageID)
                 .priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -61,6 +60,5 @@ abstract class BaseIntroActivity : AppCompatActivity() {
                 .into(getIntroImageView())
     }
 
-    abstract fun onCreateInit(savedInstanceState: Bundle?)
     abstract fun getIntroImageView(): ImageView
 }

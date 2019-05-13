@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable_back
-import com.dev.hare.firebasepushmodule.sample.MainActivity
+import com.dev.hare.firebasepushmodule.example.MainActivity
 
 abstract class AbstractDefaultNotificationModel_back(
     protected val context: Context,
