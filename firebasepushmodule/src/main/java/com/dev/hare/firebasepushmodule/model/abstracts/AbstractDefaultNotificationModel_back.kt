@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable_back
-import com.dev.hare.firebasepushmodule.example.MainActivity
+import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
 
 abstract class AbstractDefaultNotificationModel_back(
     protected val context: Context,
@@ -63,7 +63,7 @@ abstract class AbstractDefaultNotificationModel_back(
         }
     protected var pendingIntent: PendingIntent? = null
         get() {
-            if(field == null) field = createPendingIntent(MainActivity::class.java)
+            if(field == null) field = createPendingIntent(ExampleMainActivity::class.java)
             return field
         }
 
@@ -130,7 +130,7 @@ abstract class AbstractDefaultNotificationModel_back(
             setContentTitle(title)
             setContentText(content)
             setCategory(Notification.CATEGORY_SERVICE)
-            setContentIntent(createDefaultPendingIntent(MainActivity::class.java))
+            setContentIntent(createDefaultPendingIntent(ExampleMainActivity::class.java))
         }
     }
 

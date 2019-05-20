@@ -85,7 +85,11 @@ abstract class AbstractDefaultNotificationModel(
      * */
     @RequiresApi(Build.VERSION_CODES.O)
     override fun createDefaultNotificationChannel(notificationManager: NotificationManager): NotificationChannel {
-        return NotificationChannel(dataModel.channelID, dataModel.channelName, NotificationManager.IMPORTANCE_HIGH).apply {
+        return NotificationChannel(
+            dataModel.channelID,
+            dataModel.channelName,
+            NotificationManager.IMPORTANCE_HIGH
+        ).apply {
             enableLights(true)
             enableVibration(true)
             importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -111,8 +115,8 @@ abstract class AbstractDefaultNotificationModel(
             } else {
                 notificationManager.notify(0, builderModel.compatBuilder?.build())
             }
-        }catch (e: Exception){
-            Logger.log(Logger.LogType.ERROR, e)
+        } catch (e: Exception) {
+            Logger.log(Logger.LogType.ERROR, "", e)
         }
     }
 

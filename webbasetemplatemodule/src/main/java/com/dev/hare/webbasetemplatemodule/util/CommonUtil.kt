@@ -2,8 +2,13 @@ package com.dev.hare.webbasetemplatemodule.util
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.provider.Settings
+import android.telephony.TelephonyManager
+import java.io.UnsupportedEncodingException
+import java.util.*
 
-object CommonUtils {
+object CommonUtil {
+    private const val _PROPERTY_DEVICE_ID = "DEVICE-ID"
 
     /**
      * 네트워크 상태 enum 상수
@@ -25,12 +30,6 @@ object CommonUtils {
         return NetworkState.NOT_CONNECTED
     }
 
-    // 앱 버전체크 통신
-    fun appVersionCheck() {
-
-    }
-
-
     /**
      * 디바이스 고유 아이디 리턴 <br></br> 1. ANDROID_ID 가져옴 <br></br> 2. 특정 번호로만 나오는 버그에 대한 예외처리 <br></br> 3. ANDROID_ID 가
      * 없으면 getDeviceID()를 사용 <br></br> 4. 둘다 실패 하면 랜덤하게 UUID 발생 <br></br> 5. 4번은 랜덤한 값으로 preference에 저장 삭제 후
@@ -38,9 +37,9 @@ object CommonUtils {
      *
      * @return
      */
-    /*fun getDeviceUUID(context: Context): String {
-        val id = SharedSetting.getData(context, UrlInfo.PROPERTY_DEVICE_ID)
-        var uuid: UUID? = null
+    fun getDeviceUUID(context: Context): String {
+        val id = PreferenceUtil.getData(context, _PROPERTY_DEVICE_ID)
+        var uuid: UUID?
         if (id != null && "" != id) {
             uuid = UUID.fromString(id)
         } else {
@@ -49,8 +48,7 @@ object CommonUtils {
                 if ("9774d56d682e549c" != androidId) {
                     uuid = UUID.nameUUIDFromBytes(androidId.toByteArray(charset("utf8")))
                 } else {
-                    val deviceId = (context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager)
-                        .deviceId
+                    val deviceId = (context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).deviceId
                     uuid =
                         if (deviceId != null) UUID.nameUUIDFromBytes(deviceId.toByteArray(charset("utf8"))) else UUID.randomUUID()
                 }
@@ -58,10 +56,10 @@ object CommonUtils {
                 throw RuntimeException(e)
             }
 
-            SharedSetting.setData(context, UrlInfo.PROPERTY_DEVICE_ID, uuid!!.toString())
+            PreferenceUtil.setData(context, _PROPERTY_DEVICE_ID, uuid!!.toString())
         }
 
         return uuid!!.toString()
-    }*/
+    }
 
 }

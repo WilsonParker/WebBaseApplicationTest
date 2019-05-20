@@ -2,7 +2,7 @@ package com.dev.hare.webbasetemplatemodule.util
 
 import android.content.Context
 
-class PreferenceUtil {
+object PreferenceUtil {
     private val SHARED_PREFERENCES_NAME = "WebBaseApplicationTest"
 
     fun setData(context: Context, key: String, contentsCode: String): Boolean {

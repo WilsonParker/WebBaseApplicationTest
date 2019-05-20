@@ -5,7 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 abstract class AbstractFirebaseMessagingServive : FirebaseMessagingService() {
-    protected abstract val serviceClass: Class<*>
+    protected abstract val serviceClass: Class<AbstractImageDownloadService>
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         if (remoteMessage != null && remoteMessage.data != null && !remoteMessage.data.isEmpty()) {

@@ -3,10 +3,12 @@ package com.dev.hare.firebasepushmodule.example
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dev.hare.firebasepushmodule.R
+import com.dev.hare.firebasepushmodule.basic.BasicTokenCallService
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
+import com.dev.hare.firebasepushmodule.util.Logger
 
 
-class MainActivity : AppCompatActivity() {
+class ExampleMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,7 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         FirebaseUtil.getToken(object : FirebaseUtil.OnGetTokenSuccessListener {
             override fun onSuccess(token: String) {
-                ExampleHttpService.insertToken(token, "")
+                BasicTokenCallService.insertToken(token, "") {
+                    Logger.log(Logger.LogType.INFO, "insertToken : ${it.toString()}")
+                }
             }
         })
     }

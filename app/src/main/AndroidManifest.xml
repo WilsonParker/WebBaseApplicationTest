@@ -1,32 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="com.dev.hare.webbaseapplicationtest">
+<manifest
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.dev.hare.webbaseapplicationtest">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- 외부 저장소 사용 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
+            android:name="com.dev.hare.socialloginmodule.application.GlobalApplication"
             android:allowBackup="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/icon"
             android:label="@string/app_name"
+            android:usesCleartextTraffic="true"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             >
-        <activity android:name=".IntroActivity"
-            android:theme="@style/SplashTheme">
+        <activity
+                android:name=".activity.IntroActivity"
+                android:theme="@style/SplashTheme"
+                android:noHistory="true"
+                >
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.dev.hare.socialloginmodule.activity.basic.BasicKakaoActivity"/>
+        <activity android:name="com.dev.hare.socialloginmodule.activity.basic.BasicNaverActivity"/>
+        <activity android:name="com.dev.hare.socialloginmodule.activity.basic.BasicFacebookActivity"/>
+        <activity android:name="com.dev.hare.socialloginmodule.activity.basic.BasicPaycoActivity"/>
+
+        <activity
+                android:name="com.dev.hare.socialloginmodule.activity.social.FacebookActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name"/>
+        <activity
+                android:name="com.dev.hare.socialloginmodule.activity.social.CustomTabActivity"
+                android:exported="true">
+            <intent-filter><action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="@string/FB_LOGIN_PROTOCOL_SCHEME"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.dev.hare.socialloginmodule.activity.social.PaycoLoginAuthWebViewActivity"
+                  android:theme="@style/paycoLoginStyle"
+                  android:screenOrientation="portrait" />
+
+        <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="23f68499dc675376b668d12d08234a6c"/>
+        <meta-data
+                android:name="NAVER_OAUTH_CLIENT_ID"
+                android:value="@string/NAVER_OAUTH_CLIENT_ID"/>
+        <meta-data
+                android:name="NAVER_OAUTH_CLIENT_SECRET"
+                android:value="@string/NAVER_OAUTH_CLIENT_SECRET"/>
+        <meta-data
+                android:name="NAVER_OAUTH_CLIENT_NAME"
+                android:value="@string/NAVER_OAUTH_CLIENT_NAME"/>
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/FACEBOOK_APP_ID"/>
+        <meta-data
+                android:name="PAYCO_CLIENT_ID"
+                android:value="@string/PAYCO_CLIENT_ID"/>
+        <meta-data
+                android:name="PAYCO_SECRET_KEY"
+                android:value="@string/PAYCO_SECRET_KEY"/>
 
     </application>
-
 </manifest>

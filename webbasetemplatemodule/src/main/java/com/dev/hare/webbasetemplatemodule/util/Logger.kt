@@ -3,39 +3,55 @@ package com.dev.hare.webbasetemplatemodule.util
 import android.util.Log
 
 object Logger {
-    var IS_DEBUG = true
+    private const val IS_DEBUG = true
+    private const val HORIZON =
+        "----------------------------------------------------------------------------------------------------\n"
 
     enum class LogType {
         INFO, DEBUG, VERB, WARN, ERROR
     }
 
-    fun log(logType: LogType, e: Exception) {
-        log(logType, "", e)
-    }
-
-    fun log(logType: LogType, message: String, e: Exception) {
-        log(logType, message + e.message)
+    fun log(logType: LogType, message: String = "", e: Exception) {
+        val log = buildLogMsg(message + e.message)
+        log(logType, log[0], log[1])
         e.printStackTrace()
     }
 
-    fun log(logType: LogType, t: Throwable) {
-        log(logType, "", t)
-    }
-
-    fun log(logType: LogType, message: String, t: Throwable) {
-        log(logType, message + t.message)
+    fun log(logType: LogType, message: String = "", t: Throwable) {
+        val log = buildLogMsg(message + t.message)
+        log(logType, log[0], log[1])
         t.printStackTrace()
     }
 
+    fun log(logType: LogType, vararg messages: String) {
+        val tag = buildLogMsg(messages[0])[0]
+        execute(logType, tag, HORIZON)
+        messages.forEach {
+            val log = buildLogMsg(it)
+            execute(logType, log[0], log[1])
+        }
+        execute(logType, tag, HORIZON)
+    }
+
     fun log(logType: LogType, message: String) {
+        val log = buildLogMsg(message)
+        log(logType, log[0], log[1])
+    }
+
+    fun log(logType: LogType, tag: String, message: String) {
+        execute(logType, tag, HORIZON)
+        execute(logType, tag, message)
+        execute(logType, tag, HORIZON)
+    }
+
+    private fun execute(logType: LogType, tag: String, message: String) {
         if (IS_DEBUG) {
-            val log = buildLogMsg(message)
             when (logType) {
-                Logger.LogType.INFO -> Log.i(log[0], log[1])
-                Logger.LogType.DEBUG -> Log.d(log[0], log[1])
-                Logger.LogType.VERB -> Log.v(log[0], log[1])
-                Logger.LogType.WARN -> Log.w(log[0], log[1])
-                Logger.LogType.ERROR -> Log.e(log[0], log[1])
+                Logger.LogType.INFO -> Log.i(tag, message)
+                Logger.LogType.DEBUG -> Log.d(tag, message)
+                Logger.LogType.VERB -> Log.v(tag, message)
+                Logger.LogType.WARN -> Log.w(tag, message)
+                Logger.LogType.ERROR -> Log.e(tag, message)
             }
         }
     }

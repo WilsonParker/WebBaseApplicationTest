@@ -49,7 +49,7 @@ class BaseWebChromeClient(private val context: Context, private val _webViewBase
         filePathCallback: ValueCallback<Array<Uri>>?,
         fileChooserParams: FileChooserParams?
     ): Boolean {
-        FCManager.apply{
+        FCManager.apply {
             mFilePathCallback?.onReceiveValue(null)
             mFilePathCallback = filePathCallback
             imageChooser(context as Activity)

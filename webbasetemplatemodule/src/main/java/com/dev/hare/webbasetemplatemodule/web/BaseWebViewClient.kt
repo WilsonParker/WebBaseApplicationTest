@@ -23,13 +23,17 @@ class BaseWebViewClient(private val _webViewBaseCommand: WebViewBaseCommand) : W
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-        request?.url?.let { return newApplicationIfOtherHost(it.toString()) }
-        return super.shouldOverrideUrlLoading(view, request)
+       /* request?.url?.let { return newApplicationIfOtherHost(it.toString()) }
+        return super.shouldOverrideUrlLoading(view, request)*/
+        request?.let { _webViewBaseCommand.newWindow(it.url) }
+        return true
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-        url?.let { return newApplicationIfOtherHost(url) }
-        return super.shouldOverrideUrlLoading(view, url)
+       /* url?.let { return newApplicationIfOtherHost(url) }
+        return super.shouldOverrideUrlLoading(view, url)*/
+        _webViewBaseCommand.newWindow(Uri.parse(url))
+        return true
     }
 
     private fun handleRequest(urlString: String): WebResourceResponse {

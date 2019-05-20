@@ -101,7 +101,7 @@ abstract class AbstractImageDownloadService : Service() {
                 )
             }
         } catch (e: Exception) {
-            Logger.log(Logger.LogType.ERROR, e)
+            Logger.log(Logger.LogType.ERROR, "", e)
         }
     }
 
@@ -151,7 +151,4 @@ abstract class AbstractImageDownloadService : Service() {
         }
     }
 
-    // protected abstract fun createNotificationModel(data: Map<String, String>?): AbstractDefaultNotificationModel
-
-    // protected abstract fun createOnImageLoadCompleteListener(): ImageUtilUsingThread.OnImageLoadCompleteListener
 }
