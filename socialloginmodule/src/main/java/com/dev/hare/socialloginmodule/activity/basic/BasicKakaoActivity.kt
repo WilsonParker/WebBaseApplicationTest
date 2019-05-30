@@ -1,7 +1,7 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
+import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractKakaoActivity
-import com.dev.hare.socialloginmodule.util.Logger
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback

@@ -5,21 +5,18 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
-   <!-- <application
-            android:allowBackup="false"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".example.ExampleMainActivity"/>
+    <application>
 
-        <service android:name="com.dev.hare.firebasepushmodule.basic.FirebaseBasicMessagingListener">
+        <service
+                android:name=".basic.FirebaseBasicMessagingListener"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name="com.dev.hare.firebasepushmodule.basic.FirebaseBasicImageDownloadService"/>
-    </application>-->
-
+        <service android:name=".basic.FirebaseBasicBackgroundImageDownloadService"/>
+        <service android:name=".basic.FirebaseBasicForegroundImageDownloadService"/>
+        <service android:name=".basic.FirebaseBasicWorkerImageDownloadService"/>
+    </application>
 </manifest>

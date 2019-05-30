@@ -1,10 +1,12 @@
 package com.dev.hare.firebasepushmodule.service.abstracts
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Build
+import com.dev.hare.firebasepushmodule.service.abstracts.images.AbstractForegroundImageDownloadService
 import com.google.firebase.messaging.RemoteMessage
 
-abstract class AbstractFirebaseMessagingForegroundService : AbstractFirebaseMessagingServive() {
+abstract class AbstractFirebaseMessagingForegroundService<activity: Activity, service : AbstractForegroundImageDownloadService<activity>> :
+    AbstractFirebaseMessagingServive<service>() {
 
     override fun run(remoteMessage: RemoteMessage) {
         val intent = createIntent(remoteMessage)
@@ -12,13 +14,5 @@ abstract class AbstractFirebaseMessagingForegroundService : AbstractFirebaseMess
             startForegroundService(intent)
         else
             startService(intent)
-    }
-
-    override fun createIntent(remoteMessage: RemoteMessage): Intent {
-        val intent = Intent()
-        intent.setClass(baseContext, serviceClass)
-        intent.putExtra(AbstractImageDownloadService.KEY_URL, remoteMessage.data[AbstractImageDownloadService.KEY_URL])
-        intent.putExtra(AbstractImageDownloadService.KEY_REMOTE_MESSAGE, remoteMessage)
-        return intent
     }
 }

@@ -13,7 +13,7 @@ import com.toast.android.paycologin.PaycoLoginManager
 import com.toast.android.paycologin.PaycoLoginManagerConfiguration
 
 
-class GlobalApplication : Application() {
+open class GlobalApplication : Application() {
     companion object {
         private var instance: GlobalApplication? = null
         fun getGlobalApplicationContext(): GlobalApplication {
@@ -42,7 +42,7 @@ class GlobalApplication : Application() {
     }
 
     private fun naverInit() {
-        bundle?.let {
+        bundle.let {
             OAuthLogin.getInstance().init(
                 this,
                 it.getString("NAVER_OAUTH_CLIENT_ID"),
@@ -58,7 +58,7 @@ class GlobalApplication : Application() {
     }
 
     private fun paycoInit() {
-        bundle?.let {
+        bundle.let {
             var stringId = applicationInfo.labelRes
             var appName = if (stringId == 0) applicationInfo.nonLocalizedLabel else getString(stringId)
 

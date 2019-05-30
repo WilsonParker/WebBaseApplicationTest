@@ -2,23 +2,29 @@ package com.dev.hare.webbasetemplatemodule.web
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-import android.webkit.*
+import android.webkit.CookieManager
+import android.webkit.WebSettings
+import android.webkit.WebView
 import androidx.annotation.RequiresApi
-import com.dev.hare.webbasetemplatemodule.activity.BaseWebActivity
-import com.example.user.webviewproject.net.listener.WebViewBaseCommand
+import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
+import com.example.user.webviewproject.net.BaseWebChromeClient
+import com.example.user.webviewproject.net.BaseWebViewClient
 
-abstract class BaseWebView : WebView {
+abstract class BaseWebView<Activity : BaseWindowActivity>: WebView, Cloneable{
+    constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    abstract val host: String
-    protected abstract val windowActivity: Class<BaseWebActivity>
-    private val _currentHostReg = """(${extractUrlLastSlash(host)})?(/([\w/_.]*(\?\S+)?)?)?""".toRegex()
+    var webViewCommand: BaseWebViewCommand<Activity>? = null
+        set(value) {
+            field = value
+            webViewClient = BaseWebViewClient(value)
+            webChromeClient = BaseWebChromeClient(context, value)
+        }
+    abstract var host:String
 
     var javascriptBrideInterface: JavascriptBridgeFrame? = null
         @SuppressLint("JavascriptInterface")
@@ -31,8 +37,8 @@ abstract class BaseWebView : WebView {
         init()
     }
 
-    @SuppressLint("JavascriptInterface")
-    fun init() {
+    @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
+    private fun init() {
         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
 
         //웹뷰 속도개선
@@ -66,38 +72,24 @@ abstract class BaseWebView : WebView {
             setAppCacheEnabled(true)
             domStorageEnabled = true
             javaScriptEnabled = true
+            setSupportMultipleWindows(true)
             allowFileAccess = true
             allowFileAccessFromFileURLs = true //Maybe you don't need this rule
             allowUniversalAccessFromFileURLs = true
+            allowContentAccess = true
             javaScriptCanOpenWindowsAutomatically = true
             // this.setSupportMultipleWindows(true)
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
             setRenderPriority(WebSettings.RenderPriority.HIGH)
-
+            textZoom = 100
             userAgentString = "$userAgentString/app_android"
+
+            pluginState = WebSettings.PluginState.OFF
+            loadWithOverviewMode = true
+            supportZoom()
         }
-
-
-        object : WebViewBaseCommand {
-            override fun isCurrentHost(host: String): Boolean = host.matches(_currentHostReg)
-
-            override fun newWindow(url: Uri) {
-                if (isCurrentHost(url.toString())) {
-                    context.startActivity(Intent(context, windowActivity).apply { data = url })
-                } else {
-                    newApplication(url)
-                }
-            }
-
-            override fun newApplication(url: Uri) {
-                context.startActivity(Intent(Intent.ACTION_VIEW).apply { data = url })
-            }
-        }.let {
-            /*webViewClient = BaseWebViewClient(it)
-            webChromeClient = BaseWebChromeClient(context, it)*/
-        }
-
-        loadUrl(host)
+        webViewClient = BaseWebViewClient(webViewCommand)
+        webChromeClient = BaseWebChromeClient(context, webViewCommand)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -111,14 +103,6 @@ abstract class BaseWebView : WebView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(this, enabled)
         }
-    }
-
-    private fun extractUrlLastSlash(url: String): String {
-        return if (url.takeLast(1) == "/") url.dropLast(1) else url
-    }
-
-    fun isCurrentHost(url: String): Boolean {
-        return extractUrlLastSlash(url) == extractUrlLastSlash(host)
     }
 
     interface JavascriptBridgeFrame

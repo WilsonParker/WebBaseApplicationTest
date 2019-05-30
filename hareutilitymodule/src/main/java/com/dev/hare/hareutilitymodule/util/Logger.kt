@@ -1,4 +1,4 @@
-package com.dev.hare.webbasetemplatemodule.util
+package com.dev.hare.hareutilitymodule.util
 
 import android.util.Log
 

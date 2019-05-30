@@ -3,14 +3,15 @@ package com.dev.hare.webbaseapplicationtest.web
 import android.app.Activity
 import android.content.Intent
 import android.webkit.JavascriptInterface
-import com.dev.hare.firebasepushmodule.basic.BasicTokenCallService
 import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
-import com.dev.hare.firebasepushmodule.util.Logger
+import com.dev.hare.firebasepushmodule.util.FirebaseUtil
+import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.*
 import com.dev.hare.socialloginmodule.activity.basic.BasicFacebookActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicKakaoActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicNaverActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicPaycoActivity
+import com.dev.hare.webbaseapplicationtest.push.BasicTokenCallService
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
 
 class AndroidBridge(val activity: Activity) : BaseWebView.JavascriptBridgeFrame {
@@ -22,6 +23,8 @@ class AndroidBridge(val activity: Activity) : BaseWebView.JavascriptBridgeFrame 
         BasicTokenCallService.updateTokenWithUserCode(user_code) { result ->
             Logger.log(Logger.LogType.INFO, "updateTokenWithUserCode : ${result.toString()}")
         }
+        if (HttpConstantModel.token_sequence == -1)
+            FirebaseUtil.resetToken(activity)
     }
 
     @JavascriptInterface
