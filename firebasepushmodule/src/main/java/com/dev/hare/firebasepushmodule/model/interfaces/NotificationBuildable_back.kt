@@ -27,8 +27,8 @@ interface NotificationBuildable_back {
     @RequiresApi(Build.VERSION_CODES.O)
     fun createNotificationBuilder(): Notification.Builder
 
-    fun createDefaultPendingIntent(activity: Class<out Activity>): PendingIntent
+    fun createDefaultPendingIntent(activity: KClass<out Activity>): PendingIntent
 
-    fun createPendingIntent(activity: Class<out Activity>): PendingIntent
+    fun createPendingIntent(activity: KClass<out Activity>): PendingIntent
 
 }

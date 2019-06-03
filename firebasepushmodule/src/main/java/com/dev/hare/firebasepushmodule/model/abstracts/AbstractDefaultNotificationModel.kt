@@ -2,7 +2,6 @@ package com.dev.hare.firebasepushmodule.model.abstracts
 
 import android.app.*
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -132,7 +131,7 @@ abstract class AbstractDefaultNotificationModel(
     private fun applyNotificationBuilderStyle(type: PushType) {
         when (type) {
             PushType.TXT -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     builderModel.builder?.style = Notification.BigTextStyle().apply {
                         textStyleModel.bigContentTitle?.let { setBigContentTitle(it) }
                         textStyleModel.bigText?.let { bigText(it) }
@@ -149,7 +148,7 @@ abstract class AbstractDefaultNotificationModel(
             }
 
             PushType.IMG, PushType.NOTI_IMG -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     builderModel.builder?.style = Notification.BigPictureStyle().apply {
                         pictureStyleModel.bigContentTitle?.let { setBigContentTitle(it) }
                         pictureStyleModel.bigLargeIcon?.let { bigLargeIcon(it) }

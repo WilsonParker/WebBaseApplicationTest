@@ -1,10 +1,8 @@
 package com.dev.hare.firebasepushmodule.basic
 
-import com.dev.hare.firebasepushmodule.service.abstracts.AbstractFirebaseMessagingForegroundService
-import com.dev.hare.firebasepushmodule.service.abstracts.AbstractImageDownloadService
+import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
+import com.dev.hare.firebasepushmodule.service.abstracts.AbstractFirebaseMessagingBackgroundService
 
-class FirebaseBasicMessagingListener: AbstractFirebaseMessagingForegroundService() {
-    override val serviceClass: Class<AbstractImageDownloadService>
-        get() = FirebaseBasicImageDownloadService::class.java as Class<AbstractImageDownloadService>
-
+class FirebaseBasicMessagingListener: AbstractFirebaseMessagingBackgroundService<ExampleMainActivity, FirebaseBasicWorkerImageDownloadService>() {
+    override val serviceClass = FirebaseBasicWorkerImageDownloadService::class
 }

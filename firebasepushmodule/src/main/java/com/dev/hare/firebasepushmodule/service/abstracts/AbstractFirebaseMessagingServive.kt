@@ -1,14 +1,16 @@
 package com.dev.hare.firebasepushmodule.service.abstracts
 
+import android.app.Service
 import android.content.Intent
-import com.google.firebase.messaging.FirebaseMessagingService
+import com.dev.hare.firebasepushmodule.service.abstracts.images.AbstractImageDownloadService
 import com.google.firebase.messaging.RemoteMessage
+import kotlin.reflect.KClass
 
-abstract class AbstractFirebaseMessagingServive : FirebaseMessagingService() {
-    protected abstract val serviceClass: Class<AbstractImageDownloadService>
+abstract class AbstractFirebaseMessagingServive<service: Service> : com.google.firebase.messaging.FirebaseMessagingService() {
+    protected abstract val serviceClass: KClass<service>
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        if (remoteMessage != null && remoteMessage.data != null && !remoteMessage.data.isEmpty()) {
+        if (remoteMessage != null && remoteMessage.data != null && remoteMessage.data.isNotEmpty()) {
             run(remoteMessage)
         }
     }
@@ -21,6 +23,12 @@ abstract class AbstractFirebaseMessagingServive : FirebaseMessagingService() {
      * @Author : Hare
      * @Updated : 19.3.27
      */
-    protected abstract fun createIntent(remoteMessage: RemoteMessage): Intent
-
+    // protected abstract fun createIntent(remoteMessage: RemoteMessage): Intent
+    protected fun createIntent(remoteMessage: RemoteMessage): Intent {
+        val intent = Intent()
+        intent.setClass(baseContext, serviceClass.java)
+        intent.putExtra(AbstractImageDownloadService.KEY_URL, remoteMessage.data[AbstractImageDownloadService.KEY_URL])
+        intent.putExtra(AbstractImageDownloadService.KEY_REMOTE_MESSAGE, remoteMessage)
+        return intent
+    }
 }

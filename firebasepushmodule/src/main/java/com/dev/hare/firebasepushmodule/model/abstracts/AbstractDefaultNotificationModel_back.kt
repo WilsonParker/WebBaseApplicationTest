@@ -8,8 +8,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.R
-import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable_back
 import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
+import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable_back
+import kotlin.reflect.KClass
 
 abstract class AbstractDefaultNotificationModel_back(
     protected val context: Context,
@@ -63,7 +64,7 @@ abstract class AbstractDefaultNotificationModel_back(
         }
     protected var pendingIntent: PendingIntent? = null
         get() {
-            if(field == null) field = createPendingIntent(ExampleMainActivity::class.java)
+            if(field == null) field = createPendingIntent(ExampleMainActivity::class)
             return field
         }
 
@@ -130,7 +131,7 @@ abstract class AbstractDefaultNotificationModel_back(
             setContentTitle(title)
             setContentText(content)
             setCategory(Notification.CATEGORY_SERVICE)
-            setContentIntent(createDefaultPendingIntent(ExampleMainActivity::class.java))
+            setContentIntent(createDefaultPendingIntent(ExampleMainActivity::class))
         }
     }
 
@@ -165,8 +166,8 @@ abstract class AbstractDefaultNotificationModel_back(
      * @added 28/03/2019
      * @updated 28/03/2019
      * */
-    override fun createDefaultPendingIntent(activity: Class<out Activity>): PendingIntent {
-        var intent = Intent(context, activity)
+    override fun createDefaultPendingIntent(activity: KClass<out Activity>): PendingIntent {
+        var intent = Intent(context, activity.java)
         return PendingIntent.getActivity(
             context,
             _REQUEST_CODE,
