@@ -10,9 +10,11 @@ import com.dev.hare.socialloginmodule.activity.abstracts.AbstractSocialActivity
 import com.dev.hare.socialloginmodule.util.KeyHashManager
 import com.dev.hare.webbaseapplicationtest.R
 import com.dev.hare.webbaseapplicationtest.constants.APP_URL
+import com.dev.hare.webbaseapplicationtest.push.BasicTokenCallService
 import com.dev.hare.webbaseapplicationtest.util.NicePayUtility
 import com.dev.hare.webbaseapplicationtest.web.AndroidBridge
 import com.dev.hare.webbasetemplatemodule.activity.BaseMainActivity
+import com.dev.hare.webbasetemplatemodule.util.CommonUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
@@ -28,9 +30,9 @@ class MainActivity : BaseMainActivity<IntroActivity>() {
         FirebaseUtil.getToken(object : FirebaseUtil.OnGetTokenSuccessListener {
             override fun onSuccess(token: String) {
                 if (FirebaseUtil.isTokenRestored(this@MainActivity, token)){
-                    /*BasicTokenCallService.insertToken(token, CommonUtil.getDeviceUUID(this@MainActivity)) {
+                    BasicTokenCallService.insertToken(token, CommonUtil.getDeviceUUID(this@MainActivity)) {
                         Logger.log(Logger.LogType.INFO, "token sequence : ${it?.toString()}")
-                    }*/
+                    }
                 } else {
                     HttpConstantModel.token_sequence = FirebaseUtil.getTokenSequence(this@MainActivity)
                 }

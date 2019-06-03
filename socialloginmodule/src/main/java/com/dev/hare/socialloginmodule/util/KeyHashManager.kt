@@ -15,7 +15,7 @@ object KeyHashManager {
     fun getKeyHash(context: Context): String? {
         val packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES) ?: return null
 
-        for (signature in packageInfo!!.signatures) {
+        for (signature in packageInfo.signatures) {
             try {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())

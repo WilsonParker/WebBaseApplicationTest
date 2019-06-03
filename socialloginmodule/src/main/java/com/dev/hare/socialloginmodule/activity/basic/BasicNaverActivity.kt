@@ -1,8 +1,8 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
 import android.os.AsyncTask
+import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractNaverActivity
-import com.dev.hare.socialloginmodule.util.Logger
 import com.nhn.android.naverlogin.OAuthLogin
 
 

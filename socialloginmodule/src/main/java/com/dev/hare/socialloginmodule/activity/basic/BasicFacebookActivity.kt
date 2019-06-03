@@ -1,7 +1,7 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
+import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractFacebookActivity
-import com.dev.hare.socialloginmodule.util.Logger
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult

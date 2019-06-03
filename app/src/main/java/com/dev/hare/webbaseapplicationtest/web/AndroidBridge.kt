@@ -11,6 +11,7 @@ import com.dev.hare.socialloginmodule.activity.basic.BasicFacebookActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicKakaoActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicNaverActivity
 import com.dev.hare.socialloginmodule.activity.basic.BasicPaycoActivity
+import com.dev.hare.webbaseapplicationtest.push.BasicTokenCallService
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
 
 class AndroidBridge(val activity: Activity) : BaseWebView.JavascriptBridgeFrame {
@@ -19,9 +20,9 @@ class AndroidBridge(val activity: Activity) : BaseWebView.JavascriptBridgeFrame 
     fun logIn(user_code: String) {
         Logger.log(Logger.LogType.INFO, "usercode : $user_code")
         Logger.log(Logger.LogType.INFO, "token_sequence : ${HttpConstantModel.token_sequence}")
-        /*BasicTokenCallService.updateTokenWithUserCode(user_code) { result ->
+        BasicTokenCallService.updateTokenWithUserCode(user_code) { result ->
             Logger.log(Logger.LogType.INFO, "updateTokenWithUserCode : ${result.toString()}")
-        }*/
+        }
         if (HttpConstantModel.token_sequence == -1)
             FirebaseUtil.resetToken(activity)
     }

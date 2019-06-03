@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
 import com.dev.hare.webbaseapplicationtest.R
+import com.dev.hare.webbaseapplicationtest.push.BasicMobileCallService
 import com.dev.hare.webbasetemplatemodule.activity.BaseIntroActivity
 import kotlinx.android.synthetic.main.activity_intro.*
 
@@ -25,11 +26,11 @@ class IntroActivity : BaseIntroActivity() {
     override fun init() {
         PreferenceUtil.init(resources.getString(R.string.app_name))
 
-        /*BasicMobileCallService.getIntroImageUrl {
+        BasicMobileCallService.getIntroImageUrl {
             Logger.log(Logger.LogType.INFO, "getIntroImageUrl : ${it.toString()}")
             imageUrl = BasicMobileCallService.baseUrl+it?.data?.get("url").toString()
             applySplash()
-        }*/
+        }
     }
 
 }

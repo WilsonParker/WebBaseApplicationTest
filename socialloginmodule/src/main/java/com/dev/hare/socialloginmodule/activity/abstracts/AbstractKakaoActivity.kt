@@ -1,7 +1,7 @@
 package com.dev.hare.socialloginmodule.activity.abstracts
 
 import android.content.Intent
-import com.dev.hare.socialloginmodule.util.Logger
+import com.dev.hare.hareutilitymodule.util.Logger
 import com.kakao.auth.AuthType
 import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
