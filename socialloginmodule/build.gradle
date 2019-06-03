@@ -67,10 +67,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.2.4'
     implementation 'com.google.android.gms:play-services-ads:8.4.0'
 
+    implementation project(':hareutilitymodule')
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation "androidx.core:core-ktx:+"
+    implementation 'androidx.core:core-ktx:+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
