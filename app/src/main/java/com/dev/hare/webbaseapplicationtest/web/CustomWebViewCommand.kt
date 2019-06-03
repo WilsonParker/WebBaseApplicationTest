@@ -5,13 +5,14 @@ import android.content.Context
 import android.net.Uri
 import android.webkit.WebView
 import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.webbaseapplicationtest.constants.APP_URL
+import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
 import kotlin.reflect.KClass
 
 
-
 class CustomWebViewCommand<activity : Activity>(
-    context: Context,
+    val context: Context,
     host: String,
     activityCls: KClass<activity>,
     private val webView: WebView
@@ -20,6 +21,13 @@ class CustomWebViewCommand<activity : Activity>(
     host,
     activityCls
 ) {
+
+    override fun isNewWindow(url: Uri): Boolean {
+        return if(UrlUtil.isCurrentDomain(APP_URL, host)){
+            UrlUtil.isCurrentHost(url.toString(), "mstore.enter6.co.kr")
+        } else !UrlUtil.isCurrentDomain(host, url.toString())
+    }
+
     override fun newWindow(url: Uri): Boolean {
         Logger.log(Logger.LogType.INFO, "newWindow $url")
         /*when {
@@ -45,15 +53,14 @@ class CustomWebViewCommand<activity : Activity>(
     }
 
     override fun newApplication(url: Uri): Boolean {
-        // http://mobile-dev.enter6.co.kr/common/identifyUser/checkplus
         Logger.log(Logger.LogType.INFO, "url : $url")
         val strUrl = url.toString()
         when{
             strUrl.contains("product/detail")->{
-                newWindow(url)
+                return newWindow(url)
             }
         }
-        // webView.loadUrl(url.toString())
-        return false
+        return super.newApplication(url)
     }
+
 }

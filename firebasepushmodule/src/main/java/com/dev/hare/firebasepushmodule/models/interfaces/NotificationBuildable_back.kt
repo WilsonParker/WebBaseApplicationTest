@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.model.interfaces
+package com.dev.hare.firebasepushmodule.models.interfaces
 
 import android.app.*
 import android.os.Build

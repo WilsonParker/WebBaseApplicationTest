@@ -6,6 +6,8 @@ interface WebViewCommand {
 
     fun isNewWindow(url: Uri): Boolean
 
+    fun isNewApplication(url: Uri): Boolean
+
     fun load(url: Uri): Boolean
 
     fun newWindow(url: Uri):Boolean

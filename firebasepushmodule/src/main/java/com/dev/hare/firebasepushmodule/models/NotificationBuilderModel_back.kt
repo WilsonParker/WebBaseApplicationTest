@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.model
+package com.dev.hare.firebasepushmodule.models
 
 import android.app.Notification
 import android.app.PendingIntent

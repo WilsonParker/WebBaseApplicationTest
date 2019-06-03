@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.model.abstracts
+package com.dev.hare.firebasepushmodule.models.abstracts
 
 import android.app.*
 import android.content.Context
@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
-import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable_back
+import com.dev.hare.firebasepushmodule.models.interfaces.NotificationBuildable_back
 import kotlin.reflect.KClass
 
 abstract class AbstractDefaultNotificationModel_back(

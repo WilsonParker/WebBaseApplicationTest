@@ -1,10 +1,10 @@
-package com.dev.hare.firebasepushmodule.service.abstracts.images
+package com.dev.hare.firebasepushmodule.services.abstracts.images
 
 import android.app.Activity
 import android.app.Notification
 import android.graphics.Bitmap
 import android.os.Build
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
 import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
 

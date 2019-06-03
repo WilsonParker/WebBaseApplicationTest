@@ -3,10 +3,10 @@ package com.dev.hare.firebasepushmodule.basic
 import android.app.PendingIntent
 import android.content.Context
 import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
-import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
-import com.dev.hare.firebasepushmodule.model.NotificationDataModel
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
-import com.dev.hare.firebasepushmodule.service.abstracts.images.AbstractBackgroundImageDownloadService
+import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
+import com.dev.hare.firebasepushmodule.models.NotificationDataModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.services.abstracts.images.AbstractBackgroundImageDownloadService
 import kotlin.reflect.KClass
 
 class FirebaseBasicBackgroundImageDownloadService : AbstractBackgroundImageDownloadService<ExampleMainActivity>() {

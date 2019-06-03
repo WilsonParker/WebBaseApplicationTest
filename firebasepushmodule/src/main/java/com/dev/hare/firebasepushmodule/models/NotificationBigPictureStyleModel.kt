@@ -1,7 +1,7 @@
-package com.dev.hare.firebasepushmodule.model
+package com.dev.hare.firebasepushmodule.models
 
 import android.graphics.Bitmap
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractNotificationBigStyleModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractNotificationBigStyleModel
 
 class NotificationBigPictureStyleModel : AbstractNotificationBigStyleModel() {
     private var mBigLargeIconSet: Boolean = false

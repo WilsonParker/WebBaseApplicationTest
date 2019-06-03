@@ -7,11 +7,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.dev.hare.firebasepushmodule.model.NotificationBigPictureStyleModel
-import com.dev.hare.firebasepushmodule.model.NotificationBigTextStyleModel
-import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
-import com.dev.hare.firebasepushmodule.model.NotificationDataModel
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.models.NotificationBigPictureStyleModel
+import com.dev.hare.firebasepushmodule.models.NotificationBigTextStyleModel
+import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
+import com.dev.hare.firebasepushmodule.models.NotificationDataModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
 
 class FirebaseBasicModel(
     context: Context,

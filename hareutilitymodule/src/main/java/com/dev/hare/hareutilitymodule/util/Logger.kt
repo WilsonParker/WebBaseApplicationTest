@@ -38,7 +38,7 @@ object Logger {
         log(logType, log[0], log[1])
     }
 
-    fun log(logType: LogType, tag: String, message: String) {
+    private fun log(logType: LogType, tag: String, message: String) {
         execute(logType, tag, HORIZON)
         execute(logType, tag, message)
         execute(logType, tag, HORIZON)

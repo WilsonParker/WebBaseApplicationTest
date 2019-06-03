@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.service.abstracts.images
+package com.dev.hare.firebasepushmodule.services.abstracts.images
 
 import android.app.Activity
 import android.app.Notification
@@ -8,9 +8,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import com.dev.hare.firebasepushmodule.R
-import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
-import com.dev.hare.firebasepushmodule.model.NotificationDataModel
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
+import com.dev.hare.firebasepushmodule.models.NotificationDataModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
 import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.reflect.KClass

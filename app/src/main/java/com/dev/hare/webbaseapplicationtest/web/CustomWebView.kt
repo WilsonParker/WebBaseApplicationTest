@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.webkit.WebView
 import android.widget.Toast
 import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
 import com.dev.hare.webbaseapplicationtest.activity.WindowActivity
 import com.dev.hare.webbaseapplicationtest.constants.URL_KEY
 import com.dev.hare.webbaseapplicationtest.util.NicePayUtility
@@ -28,6 +29,15 @@ class CustomWebView(context: Context, attrs: AttributeSet?) : BaseWebView<Window
     private var CloseReUrl: String? = null
     private lateinit var customWebViewClient: BaseWebViewClient<WindowActivity>
     private lateinit var customWebChromeClient: BaseWebChromeClient<WindowActivity>
+
+    init {
+        if(PreferenceUtil.isFirst(context)){
+            settings.apply {
+                userAgentString = "$userAgentString/app_first"
+            }
+            PreferenceUtil.setFirstInstalled(context)
+        }
+    }
 
     fun initWebView(activity: Activity) {
         customWebViewClient = object : BaseWebViewClient<WindowActivity>(webViewCommand) {

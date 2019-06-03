@@ -56,6 +56,8 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data android:scheme="@string/FB_LOGIN_PROTOCOL_SCHEME"/>
+                <data android:scheme="@string/kakao_scheme"
+                      android:host="@string/kakaolink_host" />
             </intent-filter>
         </activity>
         <activity
@@ -65,7 +67,7 @@
         <!-- Social Login Meta-Data -->
         <meta-data
                 android:name="com.kakao.sdk.AppKey"
-                android:value="23f68499dc675376b668d12d08234a6c"/>
+                android:value="@string/kakao_app_key"/>
         <meta-data
                 android:name="NAVER_OAUTH_CLIENT_ID"
                 android:value="@string/NAVER_OAUTH_CLIENT_ID"/>

@@ -1,8 +1,8 @@
-package com.dev.hare.firebasepushmodule.model
+package com.dev.hare.firebasepushmodule.models
 
 import android.content.Context
 import android.graphics.Bitmap
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
 
 class NotificationDataModel(
     val context: Context,

@@ -2,11 +2,13 @@ package com.dev.hare.hareutilitymodule.util.file
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil.Key.IS_FIRST
 
 object PreferenceUtil {
     internal object Key {
         val VERSION = "ver"
         val OLD_VERSION = "old_ver"
+        val IS_FIRST = "isfirst"
     }
 
     private var SHARED_PREFERENCES_NAME = "PreferenceUtil"
@@ -21,7 +23,7 @@ object PreferenceUtil {
         return editor.commit()
     }
 
-    fun getData(context: Context, key: String): String? {
+    fun getData(context: Context, key: String): String {
         val savedSession = context.getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         return savedSession.getString(key, "") // "" : undifined, Y : yes, N :
     }
@@ -39,6 +41,14 @@ object PreferenceUtil {
         }
 
         return oldVer < version
+    }
+
+    fun isFirst(context:Context) :Boolean{
+        return getData(context, IS_FIRST) == ""
+    }
+
+    fun setFirstInstalled(context:Context) :Boolean{
+        return setData(context, IS_FIRST, "true")
     }
 
     fun completeFirstInstall(context: Context) {

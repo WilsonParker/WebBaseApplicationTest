@@ -3,10 +3,10 @@ package com.dev.hare.webbaseapplicationtest.push
 import android.app.PendingIntent
 import android.content.Context
 import com.dev.hare.firebasepushmodule.basic.FirebaseBasicModel
-import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
-import com.dev.hare.firebasepushmodule.model.NotificationDataModel
-import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
-import com.dev.hare.firebasepushmodule.service.abstracts.images.AbstractWorkerImageDownloadService
+import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
+import com.dev.hare.firebasepushmodule.models.NotificationDataModel
+import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
+import com.dev.hare.firebasepushmodule.services.abstracts.images.AbstractWorkerImageDownloadService
 import com.dev.hare.webbaseapplicationtest.activity.MainActivity
 import kotlin.reflect.KClass
 

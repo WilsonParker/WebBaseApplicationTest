@@ -1,15 +1,15 @@
-package com.dev.hare.firebasepushmodule.model.abstracts
+package com.dev.hare.firebasepushmodule.models.abstracts
 
 import android.app.*
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.dev.hare.firebasepushmodule.model.NotificationBigPictureStyleModel
-import com.dev.hare.firebasepushmodule.model.NotificationBigTextStyleModel
-import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
-import com.dev.hare.firebasepushmodule.model.NotificationDataModel
-import com.dev.hare.firebasepushmodule.model.interfaces.NotificationBuildable
+import com.dev.hare.firebasepushmodule.models.NotificationBigPictureStyleModel
+import com.dev.hare.firebasepushmodule.models.NotificationBigTextStyleModel
+import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
+import com.dev.hare.firebasepushmodule.models.NotificationDataModel
+import com.dev.hare.firebasepushmodule.models.interfaces.NotificationBuildable
 import com.dev.hare.hareutilitymodule.util.Logger
 
 abstract class AbstractDefaultNotificationModel(

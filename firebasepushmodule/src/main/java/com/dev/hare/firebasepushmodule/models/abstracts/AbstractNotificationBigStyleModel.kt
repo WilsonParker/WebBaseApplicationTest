@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.model.abstracts
+package com.dev.hare.firebasepushmodule.models.abstracts
 
 abstract class AbstractNotificationBigStyleModel {
     var bigContentTitle: String? = null

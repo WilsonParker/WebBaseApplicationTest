@@ -1,13 +1,13 @@
-package com.dev.hare.firebasepushmodule.service.abstracts
+package com.dev.hare.firebasepushmodule.services.abstracts
 
 import android.app.Service
 import android.content.Intent
-import com.dev.hare.firebasepushmodule.service.abstracts.images.AbstractImageDownloadService
+import com.dev.hare.firebasepushmodule.services.abstracts.images.AbstractImageDownloadService
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.reflect.KClass
 
-abstract class AbstractFirebaseMessagingServive<service: Service> : FirebaseMessagingService() {
+abstract class AbstractFirebaseMessagingFrame<service: Service> : FirebaseMessagingService() {
     protected abstract val serviceClass: KClass<service>
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {

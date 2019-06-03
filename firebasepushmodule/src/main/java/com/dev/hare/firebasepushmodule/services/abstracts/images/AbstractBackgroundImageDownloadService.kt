@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.service.abstracts.images
+package com.dev.hare.firebasepushmodule.services.abstracts.images
 
 import android.app.Activity
 import android.graphics.Bitmap
