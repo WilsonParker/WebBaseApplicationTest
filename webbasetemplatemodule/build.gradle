@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.1.1"
+        versionCode 3
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -28,6 +28,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.core:core:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // https://square.github.io/retrofit/
@@ -42,8 +43,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    // https://github.com/kotlin/kotlinx.coroutines/blob/master/README.md#using-in-your-projects
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
     // jsoup - ckeckdate - 2017.12.18
     implementation 'org.jsoup:jsoup:1.11.2'
+
+    implementation project(':hareutilitymodule')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.basic.BasicTokenCallService
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
-import com.dev.hare.firebasepushmodule.util.Logger
+import com.dev.hare.hareutilitymodule.util.Logger
 
 
 class ExampleMainActivity : AppCompatActivity() {

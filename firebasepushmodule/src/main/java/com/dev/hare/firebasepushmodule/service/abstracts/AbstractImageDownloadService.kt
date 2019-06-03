@@ -13,8 +13,8 @@ import com.dev.hare.firebasepushmodule.basic.FirebaseBasicModel
 import com.dev.hare.firebasepushmodule.model.NotificationBuilderModel
 import com.dev.hare.firebasepushmodule.model.NotificationDataModel
 import com.dev.hare.firebasepushmodule.model.abstracts.AbstractDefaultNotificationModel
-import com.dev.hare.firebasepushmodule.util.ImageUtilUsingThread
-import com.dev.hare.firebasepushmodule.util.Logger
+import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
 import com.google.firebase.messaging.RemoteMessage
 import java.lang.NullPointerException
 

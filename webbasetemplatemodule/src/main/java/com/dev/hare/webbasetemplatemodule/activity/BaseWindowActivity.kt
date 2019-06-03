@@ -1,23 +1,22 @@
 package com.dev.hare.webbasetemplatemodule.activity
 
 import android.os.Bundle
-import com.dev.hare.webbasetemplatemodule.R
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_window.*
+import android.webkit.WebView
 
 abstract class BaseWindowActivity : BaseWebActivity() {
-    abstract val contentView:Int
+    protected abstract val webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(contentView)
-        initWebView()
+        onCreateInit(savedInstanceState)
+        onCreateAfter(savedInstanceState)
     }
 
-    private fun initWebView(){
-        intent?.data.let {
-            webview.loadUrl(it.toString())
-        }
+    protected fun getUrl(): String {
+        return intent.data.toString()
     }
 
+    override fun onBackPressed() {
+        finish()
+    }
 }

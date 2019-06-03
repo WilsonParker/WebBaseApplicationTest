@@ -5,12 +5,23 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Message
-import android.webkit.*
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebView
 import androidx.annotation.RequiresApi
-import com.example.user.webviewproject.net.listener.WebViewBaseCommand
+import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
+import com.dev.hare.webbasetemplatemodule.web.BaseWebView
+import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
 import com.example.user.webviewproject.util.FileChooserManager as FCManager
+import com.example.user.webviewproject.util.FileChooserManager2 as FCManager2
+import com.example.user.webviewproject.util.FileChooserManagerRenewer as FCManager3
 
-class BaseWebChromeClient(private val context: Context, private val _webViewBaseCommand: WebViewBaseCommand) :
+
+open class BaseWebChromeClient<activity : BaseWindowActivity>(
+    private val context: Context,
+    private val webViewBaseCommand: BaseWebViewCommand<activity>?
+) :
     WebChromeClient() {
 
     override fun onCreateWindow(
@@ -19,41 +30,44 @@ class BaseWebChromeClient(private val context: Context, private val _webViewBase
         isUserGesture: Boolean,
         resultMsg: Message?
     ): Boolean {
-        var newWebView = WebView(view!!.context).apply {
-            webViewClient = object : WebViewClient() {
-
-                @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-                    // logger.info("shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean")
-                    request?.let { _webViewBaseCommand.newWindow(it.url) }
-                    return true
-                }
-
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    // logger.info("shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean")
-                    _webViewBaseCommand.newWindow(Uri.parse(url))
-                    return true
-                }
-            }
+        view?.settings?.apply {
+            domStorageEnabled = true
+            javaScriptEnabled = true
+            allowFileAccess = true
+            allowContentAccess = true
         }
+
+        var newWebView = object : BaseWebView<activity>(context) {
+            override var host: String = ""
+        }.apply {
+            this.webViewCommand = webViewBaseCommand
+//            this.webViewClient = BaseWebViewClient(webViewBaseCommand)
+//            this.webChromeClient= this@BaseWebChromeClient
+        }
+
+        view?.removeAllViews()
+        view?.webChromeClient = this
         view?.addView(newWebView)
         (resultMsg!!.obj as WebView.WebViewTransport).webView = newWebView
         resultMsg.sendToTarget()
         return true
     }
 
+    override fun onCloseWindow(window: WebView?) {
+        Logger.log(Logger.LogType.INFO, "onCloseWindow")
+        (context as Activity).finish()
+    }
+
     // For Android Version 5.0+
     // Ref: https://github.com/GoogleChrome/chromium-webview-samples/blob/master/input-file-example/app/src/main/java/inputfilesample/android/chrome/google/com/inputfilesample/MainFragment.java
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onShowFileChooser(
         webView: WebView?,
         filePathCallback: ValueCallback<Array<Uri>>?,
-        fileChooserParams: FileChooserParams?
+        fileChooserParams: FileChooserParams
     ): Boolean {
-        FCManager.apply {
-            mFilePathCallback?.onReceiveValue(null)
-            mFilePathCallback = filePathCallback
-            imageChooser(context as Activity)
-        }
-        return true
+        return FCManager3.onShowFileChooser(webView, filePathCallback, fileChooserParams, context as Activity)
     }
+
+
 }

@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/firebasepushmodule" />
+            <option value="$PROJECT_DIR$/hareutilitymodule" />
             <option value="$PROJECT_DIR$/socialloginmodule" />
             <option value="$PROJECT_DIR$/webbasetemplatemodule" />
           </set>
