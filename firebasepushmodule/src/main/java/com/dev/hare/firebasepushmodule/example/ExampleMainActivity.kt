@@ -16,7 +16,7 @@ class ExampleMainActivity : AppCompatActivity() {
 
         FirebaseUtil.getToken(object : FirebaseUtil.OnGetTokenSuccessListener {
             override fun onSuccess(token: String) {
-                BasicTokenCallService.insertToken(token, "") {
+                BasicTokenCallService.insertToken(this@ExampleMainActivity, token, "") {
                     Logger.log(Logger.LogType.INFO, "insertToken : ${it.toString()}")
                 }
             }

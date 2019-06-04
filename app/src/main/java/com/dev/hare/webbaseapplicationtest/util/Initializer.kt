@@ -2,6 +2,8 @@ package com.dev.hare.webbaseapplicationtest.util
 
 import android.content.Context
 import com.dev.hare.hareutilitymodule.data.abstracts.Initializable
+import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
+import com.dev.hare.webbaseapplicationtest.R
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 
 object Initializer : Initializable {
@@ -9,5 +11,8 @@ object Initializer : Initializable {
         UrlUtil.appendSubDomain("store")
         UrlUtil.appendSubDomain("mstore")
         UrlUtil.appendSubDomain("mobile-enter6")
+
+        PreferenceUtil.setPreferenceName(context.resources.getString(R.string.app_name))
+        PreferenceUtil.initialize(context)
     }
 }

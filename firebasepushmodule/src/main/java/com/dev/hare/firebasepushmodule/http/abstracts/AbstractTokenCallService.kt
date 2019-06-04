@@ -1,9 +1,11 @@
 package com.dev.hare.firebasepushmodule.basic
 
+import android.content.Context
 import com.dev.hare.firebasepushmodule.http.abstracts.AbstractCallService
 import com.dev.hare.firebasepushmodule.http.interfaces.TokenManageable
 import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.firebasepushmodule.http.model.HttpResultModel
+import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.hareutilitymodule.util.Logger
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,17 +16,16 @@ abstract class AbstractTokenCallService : AbstractCallService<TokenManageable>()
     override val retrofitCallableClass: KClass<TokenManageable>
         get() = TokenManageable::class
 
-    fun insertToken(token: String, device_id: String, callback: (result: HttpResultModel?) -> Unit) {
+    fun insertToken(context: Context, token: String, device_id: String, callback: (result: HttpResultModel?) -> Unit) {
         pushService.insertToken(token, "a", device_id).enqueue(object : Callback<HttpResultModel> {
             override fun onResponse(call: Call<HttpResultModel>, response: Response<HttpResultModel>) {
                 var result: HttpResultModel? = response.body()
                 if (response.isSuccessful) {
                     try {
-                        HttpConstantModel.token_sequence = Integer.parseInt(result?.data?.get("sequence"))
+                        var sequence = Integer.parseInt(result?.data?.get("sequence"))
+                        HttpConstantModel.token_sequence = sequence
+                        FirebaseUtil.setTokenSequence(sequence)
                         callback(result)
-                        result?.let {
-                            Logger.log(Logger.LogType.INFO, "insertToken", it.toString())
-                        }
                     } catch (e: NumberFormatException) {
                         Logger.log(Logger.LogType.ERROR, "insertToken", e)
                     }
@@ -83,7 +84,26 @@ abstract class AbstractTokenCallService : AbstractCallService<TokenManageable>()
                     if (response.isSuccessful) {
                         callback(result)
                     } else {
-                        Logger.log(Logger.LogType.ERROR, "updateTokenWithAgreement is not successful")
+                        Logger.log(
+                            Logger.LogType.ERROR,
+                            "updateTokenWithAgreement is not successful",
+                            result.toString()
+                        )
+                        Logger.log(
+                            Logger.LogType.ERROR,
+                            "updateTokenWithAgreement is not successful",
+                            response.message()
+                        )
+                        Logger.log(
+                            Logger.LogType.ERROR,
+                            "updateTokenWithAgreement is not successful",
+                            response.errorBody().toString()
+                        )
+                        Logger.log(
+                            Logger.LogType.ERROR,
+                            "updateTokenWithAgreement is not successful",
+                            response.errorBody()!!.string()
+                        )
                     }
                 }
 

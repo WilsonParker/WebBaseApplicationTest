@@ -4,9 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.webkit.WebView
-import com.dev.hare.hareutilitymodule.util.Logger
-import com.dev.hare.webbaseapplicationtest.constants.APP_URL
-import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
 import kotlin.reflect.KClass
 
@@ -22,45 +19,41 @@ class CustomWebViewCommand<activity : Activity>(
     activityCls
 ) {
 
-    override fun isNewWindow(url: Uri): Boolean {
-        return if(UrlUtil.isCurrentDomain(APP_URL, host)){
-            UrlUtil.isCurrentHost(url.toString(), "mstore.enter6.co.kr")
-        } else !UrlUtil.isCurrentDomain(host, url.toString())
-    }
+    private val localNewWindow = arrayOf("product/detail")
 
-    override fun newWindow(url: Uri): Boolean {
-        Logger.log(Logger.LogType.INFO, "newWindow $url")
-        /*when {
-            url.toString().startsWith("intent:") -> {
-                // 출처@ https@ //gogorchg.tistory.com/entry/Android-WebView-상에서-Intent-Uri-실행 [항상 초심으로]
-                try {
-                    val intent = Intent.parseUri(url.toString(), Intent.URI_INTENT_SCHEME)
-                    val existPackage = context.packageManager.getLaunchIntentForPackage(intent.getPackage())
-                    if (existPackage != null) {
-                        context.startActivity(intent)
-                    } else {
-                        val marketIntent = Intent(Intent.ACTION_VIEW)
-                        marketIntent.data = Uri.parse("market://details?id=" + intent.getPackage()!!)
-                        context.startActivity(marketIntent)
-                    }
-                    return true
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+    override fun isNewWindow(url: Uri): Boolean {
+        // 내부 WebView 로 실행합니다
+        /*return if(UrlUtil.isCurrentDomain(APP_URL, host)){
+            !UrlUtil.isCurrentHost(host, url.toString())
+        } else {
+            !UrlUtil.isCurrentDomain(host, url.toString(), false)
         }*/
-        return super.newWindow(url)
+        return isLocalNewWindow(url.toString())
     }
 
     override fun newApplication(url: Uri): Boolean {
-        Logger.log(Logger.LogType.INFO, "url : $url")
-        val strUrl = url.toString()
-        when{
-            strUrl.contains("product/detail")->{
-                return newWindow(url)
+        return if(isLocalNewWindow(url.toString()))
+            newWindow(url)
+        else
+            super.newApplication(url)
+    }
+
+    /**
+     * 내부 url 중 WindowActivity 로 띄울지 결정합니다
+     *
+     * @param
+     * @return
+     * @author     Hare
+     * @added      2019-06-04
+     * @updated    2019-06-04
+     * */
+    private fun isLocalNewWindow(url: String) : Boolean{
+        localNewWindow.forEach { local ->
+            if(url.contains(local)){
+                return true
             }
         }
-        return super.newApplication(url)
+        return false
     }
 
 }

@@ -24,12 +24,19 @@ class AndroidBridge(val activity: Activity) : BaseWebView.JavascriptBridgeFrame 
             Logger.log(Logger.LogType.INFO, "updateTokenWithUserCode : ${result.toString()}")
         }
         if (HttpConstantModel.token_sequence == -1)
-            FirebaseUtil.resetToken(activity)
+            FirebaseUtil.resetToken()
     }
 
     @JavascriptInterface
     fun logOut() {
         Logger.log(Logger.LogType.INFO, "logout")
+    }
+
+    @JavascriptInterface
+    fun setPushAgreement(agreement: Boolean) {
+        BasicTokenCallService.updateTokenWithAgreement(agreement) { result ->
+            Logger.log(Logger.LogType.INFO, "setPushAgreement : ${result.toString()}")
+        }
     }
 
     @JavascriptInterface

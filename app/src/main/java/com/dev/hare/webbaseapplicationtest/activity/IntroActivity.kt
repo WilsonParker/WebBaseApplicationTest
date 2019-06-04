@@ -3,7 +3,6 @@ package com.dev.hare.webbaseapplicationtest.activity
 import android.os.Bundle
 import android.widget.ImageView
 import com.dev.hare.hareutilitymodule.util.Logger
-import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
 import com.dev.hare.webbaseapplicationtest.R
 import com.dev.hare.webbaseapplicationtest.push.BasicMobileCallService
 import com.dev.hare.webbasetemplatemodule.activity.BaseIntroActivity
@@ -24,8 +23,6 @@ class IntroActivity : BaseIntroActivity() {
     }
 
     override fun init() {
-        PreferenceUtil.init(resources.getString(R.string.app_name))
-
         BasicMobileCallService.getIntroImageUrl {
             Logger.log(Logger.LogType.INFO, "getIntroImageUrl : ${it.toString()}")
             imageUrl = BasicMobileCallService.baseUrl+it?.data?.get("url").toString()

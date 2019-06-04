@@ -1,14 +1,12 @@
 package com.dev.hare.firebasepushmodule.util
 
-import android.content.Context
-import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
 import com.google.firebase.iid.FirebaseInstanceId
 
 object FirebaseUtil {
-    private const val PrefToken = "firebaseToken"
-    private const val PrefTokenSequence = "firebaseTokenSequence"
+    private const val PrefToken = "token"
+    private const val PrefTokenSequence = "sequence"
 
     fun getToken(getTokenSuccessListener: OnGetTokenSuccessListener) {
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
@@ -17,25 +15,28 @@ object FirebaseUtil {
         }
     }
 
-    fun getTokenSequence(context: Context): Int {
-        var sequence = PreferenceUtil.getData(context, PrefTokenSequence)
-        return if(sequence == "") -1 else Integer.parseInt(sequence)
+    fun getTokenSequence(): Int {
+        var sequence = PreferenceUtil.getData<Int>(PrefTokenSequence, Int.javaClass)
+        return sequence
     }
 
-    fun isTokenRestored(context: Context, token: String): Boolean {
-        var prefToken = PreferenceUtil.getData(context, PrefToken)
+    fun setTokenSequence(sequence: Int) {
+        PreferenceUtil.setData(PrefTokenSequence, sequence)
+    }
+
+    fun isTokenRestored(token: String): Boolean {
+        var prefToken = PreferenceUtil.getData(PrefToken)
         return if (prefToken == "" || prefToken != token) {
-            PreferenceUtil.setData(context, PrefToken, token)
-            PreferenceUtil.setData(context, PrefTokenSequence, "${HttpConstantModel.token_sequence}")
+            PreferenceUtil.setData(PrefToken, token)
             true
         } else {
             false
         }
     }
 
-    fun resetToken(context: Context) {
-        PreferenceUtil.setData(context, PrefToken, "")
-        PreferenceUtil.setData(context, PrefTokenSequence, "")
+    fun resetToken() {
+        PreferenceUtil.setData(PrefToken, "")
+        PreferenceUtil.setData(PrefTokenSequence, -1)
     }
 
 

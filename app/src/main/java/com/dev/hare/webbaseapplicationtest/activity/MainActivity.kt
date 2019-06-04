@@ -7,7 +7,6 @@ import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractPaycoActivity
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractSocialActivity
-import com.dev.hare.socialloginmodule.util.KeyHashManager
 import com.dev.hare.webbaseapplicationtest.R
 import com.dev.hare.webbaseapplicationtest.constants.APP_URL
 import com.dev.hare.webbaseapplicationtest.push.BasicTokenCallService
@@ -29,16 +28,21 @@ class MainActivity : BaseMainActivity<IntroActivity>() {
     override fun onCreateAfter(savedInstanceState: Bundle?) {
         FirebaseUtil.getToken(object : FirebaseUtil.OnGetTokenSuccessListener {
             override fun onSuccess(token: String) {
-                if (FirebaseUtil.isTokenRestored(this@MainActivity, token)){
-                    BasicTokenCallService.insertToken(token, CommonUtil.getDeviceUUID(this@MainActivity)) {
+                if (FirebaseUtil.isTokenRestored(token)){
+                    BasicTokenCallService.insertToken(this@MainActivity, token, CommonUtil.getDeviceUUID(this@MainActivity)) {
                         Logger.log(Logger.LogType.INFO, "token sequence : ${it?.toString()}")
+
+                        BasicTokenCallService.updateTokenWithAgreement(true) { result ->
+                            Logger.log(Logger.LogType.INFO, "setPushAgreement : ${result.toString()}")
+                        }
                     }
                 } else {
-                    HttpConstantModel.token_sequence = FirebaseUtil.getTokenSequence(this@MainActivity)
+                    HttpConstantModel.token_sequence = FirebaseUtil.getTokenSequence()
+                    Logger.log(Logger.LogType.INFO, "token is not restored : ${HttpConstantModel.token_sequence}")
                 }
             }
         })
-        Logger.log(Logger.LogType.INFO, "keyhash", "" + KeyHashManager.getKeyHash(this))
+        // Logger.log(Logger.LogType.INFO, "keyhash", "" + KeyHashManager.getKeyHash(this))
 
         webview.javascriptBrideInterface = AndroidBridge(this)
         webview.host = APP_URL

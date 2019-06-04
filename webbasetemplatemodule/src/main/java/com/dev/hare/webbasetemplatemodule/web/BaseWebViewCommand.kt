@@ -19,16 +19,43 @@ open class BaseWebViewCommand<activity : Activity>(
     private val INTENT_PROTOCOL_END = ";end;";
     private val GOOGLE_PLAY_STORE_PREFIX = "market://details?id=";
 
+     /**
+       * 새로운 Activity 로 띄울지 결정합니다
+       *
+       * @param
+       * @return
+       * @author     Hare
+       * @added      2019-06-04
+       * @updated    2019-06-04
+       * */
     override fun isNewWindow(url: Uri): Boolean {
         return !UrlUtil.isCurrentHost(host, url.toString()) || !UrlUtil.isCurrentDomain(host, url.toString())
     }
 
+    /**
+     * 내부 activity 로 띄울지 결정합니다
+     *
+     * @param
+     * @return
+     * @author     Hare
+     * @added      2019-06-04
+     * @updated    2019-06-04
+     * */
     override fun isNewApplication(url: Uri): Boolean {
         return url.toString().run {
             startsWith(INTENT_PROTOCOL_START) || startsWith(GOOGLE_PLAY_STORE_PREFIX)
         }
     }
 
+    /**
+     * url 을 load 하는데 설정에 따라 window, application 로 실행합니다
+     *
+     * @param
+     * @return
+     * @author     Hare
+     * @added      2019-06-04
+     * @updated    2019-06-04
+     * */
     override fun load(url: Uri): Boolean {
         if (isNewApplication(url))
             return newApplication(url)
@@ -38,11 +65,29 @@ open class BaseWebViewCommand<activity : Activity>(
             newApplication(url)
     }
 
+    /**
+     * 새로운 WindowActivity 를 실행합니다
+     *
+     * @param
+     * @return
+     * @author     Hare
+     * @added      2019-06-04
+     * @updated    2019-06-04
+     * */
     override fun newWindow(url: Uri): Boolean {
         context.startActivity(Intent(context, activityCls.java).apply { data = url })
         return true
     }
 
+    /**
+     * 내부 activity 를 실행합니다
+     *
+     * @param
+     * @return
+     * @author     Hare
+     * @added      2019-06-04
+     * @updated    2019-06-04
+     * */
     override fun newApplication(url: Uri): Boolean {
         return url.toString().run {
             if (startsWith(INTENT_PROTOCOL_START)) {
@@ -70,7 +115,13 @@ open class BaseWebViewCommand<activity : Activity>(
                     true
                 }
             } else {
-                false
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(url.toString())
+                    )
+                )
+                true
             }
         }
     }
