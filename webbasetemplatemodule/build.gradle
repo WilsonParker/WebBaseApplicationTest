@@ -8,10 +8,10 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 3
-        versionName "1.2.1"
+        versionName "1.2.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -49,7 +49,7 @@ dependencies {
     // jsoup - ckeckdate - 2017.12.18
     implementation 'org.jsoup:jsoup:1.12.1'
 
-    implementation project(':hareutilitymodule')
+    implementation project(':apputilitymodule')
 
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.2.0-beta01'

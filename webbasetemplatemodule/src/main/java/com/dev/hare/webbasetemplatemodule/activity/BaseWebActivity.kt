@@ -1,21 +1,26 @@
 package com.dev.hare.webbasetemplatemodule.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
-import com.dev.hare.webbasetemplatemodule.util.UrlUtil.isCurrentDomain
+import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.webbasetemplatemodule.util.view.BackPressUtil
 import kotlinx.android.synthetic.main.activity_window.*
-import com.example.user.webviewproject.util.FileChooserManager as FCManager
-import com.example.user.webviewproject.util.FileChooserManager2 as FCManager2
+import kotlin.reflect.KClass
 import com.example.user.webviewproject.util.FileChooserManagerRenewer as FCManager3
 
-abstract class BaseWebActivity : BaseActivity() {
+abstract class BaseWebActivity: BaseActivity() {
+    protected abstract val windowActivity:KClass<BaseWindowActivity>
 
     override fun onBackPressed() {
         webview.run {
-            if (isCurrentDomain(url, host) && canGoBack()) {
+            Logger.log(Logger.LogType.INFO, "onBackPressed $url ; $host")
+            /*if (isCurrentDomain(url, host) && canGoBack()) {
                 goBack()
             } else {
+                BackPressUtil.onBackPressed(this@BaseWebActivity) { super.onBackPressed() }
+            }*/
+            historyBack(host, url) {
                 BackPressUtil.onBackPressed(this@BaseWebActivity) { super.onBackPressed() }
             }
         }
@@ -29,6 +34,10 @@ abstract class BaseWebActivity : BaseActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    protected fun newWindowActivity(url: Uri) {
+        startActivity(Intent(this, windowActivity.java).apply { data = url })
     }
 
 }

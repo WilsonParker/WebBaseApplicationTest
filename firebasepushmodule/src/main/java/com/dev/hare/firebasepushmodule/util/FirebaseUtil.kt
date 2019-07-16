@@ -1,7 +1,7 @@
 package com.dev.hare.firebasepushmodule.util
 
-import com.dev.hare.hareutilitymodule.util.Logger
-import com.dev.hare.hareutilitymodule.util.file.PreferenceUtil
+import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.file.PreferenceUtil
 import com.google.firebase.iid.FirebaseInstanceId
 
 object FirebaseUtil {

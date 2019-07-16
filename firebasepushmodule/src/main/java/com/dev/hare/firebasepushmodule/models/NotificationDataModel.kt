@@ -2,6 +2,7 @@ package com.dev.hare.firebasepushmodule.models
 
 import android.content.Context
 import android.graphics.Bitmap
+import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
 
 class NotificationDataModel(
@@ -17,7 +18,7 @@ class NotificationDataModel(
     var imageUrl: String? = null
     var pushType: String? = null
     var image: Bitmap? = null
-    var largeIcon: Bitmap? = null
+    var largeIcon: Int = R.mipmap.ic_launcher
 
     init {
         data?.let {

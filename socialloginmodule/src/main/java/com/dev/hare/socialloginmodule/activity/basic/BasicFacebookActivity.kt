@@ -1,13 +1,14 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractFacebookActivity
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 
 
-class BasicFacebookActivity : AbstractFacebookActivity() {
+open class BasicFacebookActivity : AbstractFacebookActivity() {
+
     override val loginCallback: FacebookCallback<LoginResult>
         get() = object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult?) {
@@ -26,6 +27,7 @@ class BasicFacebookActivity : AbstractFacebookActivity() {
             override fun onError(error: FacebookException?) {
                 Logger.log(Logger.LogType.ERROR, "FacebookException ${error?.message}")
                 Logger.log(Logger.LogType.ERROR, "FacebookException ${error?.stackTrace}")
+                finish()
             }
         }
 
@@ -33,4 +35,7 @@ class BasicFacebookActivity : AbstractFacebookActivity() {
         Logger.log(Logger.LogType.INFO, "unLink")
     }
 
+    override fun redirectUrl(): String{
+        return "/auth/social/facebook/callback?${getRedirectUrlParam()}"
+    }
 }

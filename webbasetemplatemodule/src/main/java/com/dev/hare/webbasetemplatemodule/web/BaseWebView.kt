@@ -8,12 +8,13 @@ import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
-import androidx.annotation.RequiresApi
 import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
+import com.dev.hare.webbasetemplatemodule.util.UrlUtil
+import com.dev.hare.webbasetemplatemodule.util.VersionChecker
 import com.example.user.webviewproject.net.BaseWebChromeClient
 import com.example.user.webviewproject.net.BaseWebViewClient
 
-abstract class BaseWebView<Activity : BaseWindowActivity>: WebView, Cloneable{
+abstract class BaseWebView<Activity : BaseWindowActivity> : WebView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
@@ -24,7 +25,7 @@ abstract class BaseWebView<Activity : BaseWindowActivity>: WebView, Cloneable{
             webViewClient = BaseWebViewClient(value)
             webChromeClient = BaseWebChromeClient(context, value)
         }
-    abstract var host:String
+    abstract var host: String
 
     var javascriptBrideInterface: JavascriptBridgeFrame? = null
         @SuppressLint("JavascriptInterface")
@@ -38,64 +39,84 @@ abstract class BaseWebView<Activity : BaseWindowActivity>: WebView, Cloneable{
     }
 
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
-    private fun init() {
-        scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-
-        //웹뷰 속도개선
-        if (Build.VERSION.SDK_INT >= 19) {
-            setLayerType(View.LAYER_TYPE_HARDWARE, null)
-        } else {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        }
-
-        clearHistory()
-        clearFormData()
-        clearCache(true)
-        setWebContentsDebuggingEnabled(true)
-        clearView()
-
+    protected open fun init() {
         settings.apply {
-            if (Build.VERSION.SDK_INT >= 21) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 val cookieManager = CookieManager.getInstance()
                 cookieManager.setAcceptCookie(true)
                 cookieManager.setAcceptThirdPartyCookies(this@BaseWebView, true)
             }
 
-            useWideViewPort = true
-            this.setSupportZoom(true)
+            // 웹뷰 기타설정
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                safeBrowsingEnabled = true  // api 26
+            }
+
+            cacheMode = WebSettings.LOAD_DEFAULT
+            setAppCacheEnabled(true)
+            setAppCachePath(context.cacheDir.path)
+            // setSavePassword(false)
+            setGeolocationEnabled(true)
+            setRenderPriority(WebSettings.RenderPriority.HIGH)
+
+            setSupportZoom(true)
             builtInZoomControls = true
             //줌컨트롤러 안보이게 처리
             displayZoomControls = false
-            cacheMode = WebSettings.LOAD_NO_CACHE
-            setSavePassword(false)
-            setAppCacheEnabled(true)
+
+            // 웹뷰 이미지 허용설정
+            blockNetworkImage = false
+            // 웹뷰 이미지 자동로드 설정
+            loadsImagesAutomatically = true
+            useWideViewPort = true
+            loadWithOverviewMode = true
+            mediaPlaybackRequiresUserGesture = false
+
             domStorageEnabled = true
             javaScriptEnabled = true
-            setSupportMultipleWindows(true)
             allowFileAccess = true
-            allowFileAccessFromFileURLs = true //Maybe you don't need this rule
+            allowFileAccessFromFileURLs = true // Maybe you don't need this rule
             allowUniversalAccessFromFileURLs = true
             allowContentAccess = true
             javaScriptCanOpenWindowsAutomatically = true
-            // this.setSupportMultipleWindows(true)
-            layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
-            setRenderPriority(WebSettings.RenderPriority.HIGH)
+            /*
+                활성화 했을 경우 chrome 브라우저로 실행할 페이지를 webview 에서도 호출하거나 하얀 페이지로 바뀌는 문제 발생
+            */
+            // setSupportMultipleWindows(true)
+            // layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
+            // 웹뷰 텍스트줌 설정
             textZoom = 100
-            userAgentString = "$userAgentString/app_android"
-
             pluginState = WebSettings.PluginState.OFF
-            loadWithOverviewMode = true
-            supportZoom()
+            userAgentString = "$userAgentString/app_android/app_version:${VersionChecker.getVersionInfo(context)}"
         }
+
+        //웹뷰 속도개선
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        } else {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
+
+//         clearHistory()
+//         clearFormData()
+//         clearCache(true)
+//         clearView()
+//         setWebContentsDebuggingEnabled(true)
+
+//         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
+        setMixedContentAllowed(true)
+        setThirdPartyCookiesEnabled(true)
+
         webViewClient = BaseWebViewClient(webViewCommand)
         webChromeClient = BaseWebChromeClient(context, webViewCommand)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun setMixedContentAllowed(allowed: Boolean) {
-        settings.mixedContentMode =
-            if (allowed) WebSettings.MIXED_CONTENT_ALWAYS_ALLOW else WebSettings.MIXED_CONTENT_NEVER_ALLOW
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.mixedContentMode =
+                if (allowed) WebSettings.MIXED_CONTENT_ALWAYS_ALLOW else WebSettings.MIXED_CONTENT_NEVER_ALLOW
+        }
     }
 
     fun setThirdPartyCookiesEnabled(enabled: Boolean) {
@@ -103,6 +124,22 @@ abstract class BaseWebView<Activity : BaseWindowActivity>: WebView, Cloneable{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(this, enabled)
         }
+    }
+
+    fun historyBack(url: String, host: String, event: () -> Unit) {
+        if (UrlUtil.isSameUrl(host, url)) {
+            event()
+        } else if (UrlUtil.isCurrentDomain(host, url) && canGoBack()) {
+            goBack()
+        } else {
+            event()
+        }
+    }
+
+    fun home() {
+        loadUrl(host)
+//        reload()
+//        clearHistory()
     }
 
     interface JavascriptBridgeFrame

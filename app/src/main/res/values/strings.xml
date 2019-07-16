@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WebBaseApplicationTest</string>
+    <string name="app_name">DaisoWebViewTest</string>
 
     <string name="kakao_app_key">23f68499dc675376b668d12d08234a6c</string>
     <string name="kakao_scheme">kakao23f68499dc675376b668d12d08234a6c</string>
@@ -8,7 +8,7 @@
     <string name="FB_LOGIN_PROTOCOL_SCHEME">fb341532109889853</string>
     <string name="NAVER_OAUTH_CLIENT_ID">r7G9pOSDDv7vfTssOmyw</string>
     <string name="NAVER_OAUTH_CLIENT_SECRET">SUfqlcYYkp</string>
-    <string name="NAVER_OAUTH_CLIENT_NAME">WebBaseApplicationTest</string>
+    <string name="NAVER_OAUTH_CLIENT_NAME">DaisoWebViewTest</string>
     <string name="PAYCO_CLIENT_ID">3RDpsIooTR90xecKaJuw</string>
     <string name="PAYCO_SECRET_KEY">MEBy_gcFBZpz74w2T6_EwXDP</string>
 </resources>

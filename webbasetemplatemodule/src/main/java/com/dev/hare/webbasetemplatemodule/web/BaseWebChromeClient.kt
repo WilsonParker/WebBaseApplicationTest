@@ -1,22 +1,22 @@
 package com.example.user.webviewproject.net
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Message
+import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
-import com.dev.hare.hareutilitymodule.util.Logger
 import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
 import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
-import com.example.user.webviewproject.util.FileChooserManager as FCManager
-import com.example.user.webviewproject.util.FileChooserManager2 as FCManager2
 import com.example.user.webviewproject.util.FileChooserManagerRenewer as FCManager3
-
 
 open class BaseWebChromeClient<activity : BaseWindowActivity>(
     private val context: Context,
@@ -25,6 +25,42 @@ open class BaseWebChromeClient<activity : BaseWindowActivity>(
     WebChromeClient() {
 
     override fun onCreateWindow(
+        view: WebView?,
+        isDialog: Boolean,
+        isUserGesture: Boolean,
+        resultMsg: Message?
+    ): Boolean {
+        return addNewWindow(view, isDialog, isUserGesture, resultMsg)
+    }
+
+    /*override fun onCloseWindow(window: WebView?) {
+        Logger.log(Logger.LogType.INFO, "onCloseWindow")
+        // (window?.context as Activity).finish()
+        (context as Activity).finish()
+    }*/
+
+    // For Android Version 5.0+
+    // Ref: https://github.com/GoogleChrome/chromium-webview-samples/blob/master/input-file-example/app/src/main/java/inputfilesample/android/chrome/google/com/inputfilesample/MainFragment.java
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onShowFileChooser(
+        webView: WebView?,
+        filePathCallback: ValueCallback<Array<Uri>>?,
+        fileChooserParams: FileChooserParams
+    ): Boolean {
+        return FCManager3.onShowFileChooser(webView, filePathCallback, fileChooserParams, context as Activity)
+    }
+
+    protected fun createNewWindow(
+        view: WebView?,
+        isDialog: Boolean,
+        isUserGesture: Boolean,
+        resultMsg: Message?
+    ): Boolean {
+        webViewBaseCommand?.newWindow(Uri.parse(view?.url))
+        return true
+    }
+
+    protected fun addNewWindow(
         view: WebView?,
         isDialog: Boolean,
         isUserGesture: Boolean,
@@ -41,11 +77,12 @@ open class BaseWebChromeClient<activity : BaseWindowActivity>(
             override var host: String = ""
         }.apply {
             this.webViewCommand = webViewBaseCommand
-//            this.webViewClient = BaseWebViewClient(webViewBaseCommand)
-//            this.webChromeClient= this@BaseWebChromeClient
+            this.webViewClient = BaseWebViewClient(webViewBaseCommand)
+            this.webChromeClient= this@BaseWebChromeClient
+            layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         }
 
-        view?.removeAllViews()
+        // view?.removeAllViews()
         view?.webChromeClient = this
         view?.addView(newWebView)
         (resultMsg!!.obj as WebView.WebViewTransport).webView = newWebView
@@ -53,21 +90,38 @@ open class BaseWebChromeClient<activity : BaseWindowActivity>(
         return true
     }
 
-    override fun onCloseWindow(window: WebView?) {
-        Logger.log(Logger.LogType.INFO, "onCloseWindow")
-        (context as Activity).finish()
-    }
-
-    // For Android Version 5.0+
-    // Ref: https://github.com/GoogleChrome/chromium-webview-samples/blob/master/input-file-example/app/src/main/java/inputfilesample/android/chrome/google/com/inputfilesample/MainFragment.java
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onShowFileChooser(
-        webView: WebView?,
-        filePathCallback: ValueCallback<Array<Uri>>?,
-        fileChooserParams: FileChooserParams
+    protected fun addNewDialog(
+        view: WebView?,
+        isDialog: Boolean,
+        isUserGesture: Boolean,
+        resultMsg: Message?
     ): Boolean {
-        return FCManager3.onShowFileChooser(webView, filePathCallback, fileChooserParams, context as Activity)
-    }
+        /*var newWebView = object : BaseWebView<activity>(context) {
+            override var host: String = ""
+        }.apply {
+            this.webViewCommand = webViewBaseCommand
+            this.webViewClient = BaseWebViewClient(webViewBaseCommand)
+            this.webChromeClient= this@BaseWebChromeClient
+        }*/
+        var newWebView = WebView(view?.context).apply {
+            settings.apply {
+                javaScriptEnabled = true
+            }
+        }
 
+        var dialog = Dialog(view?.context)
+        dialog.setContentView(newWebView)
+        dialog.show()
+        newWebView.webViewClient = WebViewClient()
+        newWebView.webChromeClient = object : WebChromeClient() {
+            override fun onCloseWindow(window: WebView) {
+                dialog.dismiss()
+            }
+        }
+
+        (resultMsg?.obj as WebView.WebViewTransport).webView = newWebView
+        resultMsg.sendToTarget()
+        return true
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractKakaoActivity
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
@@ -11,7 +11,7 @@ import com.kakao.usermgmt.response.MeV2Response
 import java.util.*
 
 
-class BasicKakaoActivity : AbstractKakaoActivity() {
+open class BasicKakaoActivity : AbstractKakaoActivity() {
     override val logoutCallback: LogoutResponseCallback = object : LogoutResponseCallback() {
         override fun onCompleteLogout() {
         }
@@ -25,10 +25,12 @@ class BasicKakaoActivity : AbstractKakaoActivity() {
 
         override fun onSessionClosed(errorResult: ErrorResult) {
             Logger.log(Logger.LogType.INFO, "onSessionClosed : " + errorResult.errorMessage)
+            finish()
         }
 
         override fun onNotSignedUp() {
             Logger.log(Logger.LogType.INFO, "not sign up")
+            finish()
         }
 
         override fun onSuccess(userId: Long?) {
@@ -49,14 +51,19 @@ class BasicKakaoActivity : AbstractKakaoActivity() {
         UserManagement.getInstance().me(keys, object : MeV2ResponseCallback() {
             override fun onSuccess(result: MeV2Response?) {
                 result?.let {
-                    Logger.log(Logger.LogType.INFO, "${it.nickname}", "${it.id}", "${it.kakaoAccount.email}")
+                    // Logger.log(Logger.LogType.INFO, "${it.nickname}", "${it.id}", "${it.kakaoAccount.email}")
                     returnMainActivity(accessToken, refreshToken, "${it.id}")
                 }
             }
 
             override fun onSessionClosed(errorResult: ErrorResult?) {
                 Logger.log(Logger.LogType.ERROR, "onSessionClosed", errorResult?.errorMessage + "")
+                finish()
             }
         })
+    }
+
+    override fun redirectUrl(): String{
+        return "/auth/social/kakao/callback?${getRedirectUrlParam()}"
     }
 }

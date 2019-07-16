@@ -10,6 +10,7 @@ abstract class AbstractNaverActivity : AbstractSocialActivity() {
         const val REQUEST_CODE = 0x0013
     }
 
+    override val socialName: String = "naver"
     protected val mOAuthLoginInstance: OAuthLogin = OAuthLogin.getInstance()
 
     /**
@@ -22,6 +23,7 @@ abstract class AbstractNaverActivity : AbstractSocialActivity() {
                 var refreshToken = mOAuthLoginInstance.getRefreshToken(baseContext)
                 var expiresAt = mOAuthLoginInstance.getExpiresAt(baseContext)
                 var tokenType = mOAuthLoginInstance.getTokenType(baseContext)
+                var state = mOAuthLoginInstance.getState(baseContext)
                 returnMainActivity(accessToken, refreshToken, "")
             } else {
                 var errorCode = mOAuthLoginInstance.getLastErrorCode(baseContext).code

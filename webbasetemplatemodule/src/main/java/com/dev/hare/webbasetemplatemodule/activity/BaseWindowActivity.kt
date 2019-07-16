@@ -3,7 +3,7 @@ package com.dev.hare.webbasetemplatemodule.activity
 import android.os.Bundle
 import android.webkit.WebView
 
-abstract class BaseWindowActivity : BaseWebActivity() {
+abstract class BaseWindowActivity: BaseWebActivity() {
     protected abstract val webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {

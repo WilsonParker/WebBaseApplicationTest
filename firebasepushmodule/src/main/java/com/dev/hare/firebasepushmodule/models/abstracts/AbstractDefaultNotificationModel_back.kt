@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
 import com.dev.hare.firebasepushmodule.models.interfaces.NotificationBuildable_back
 import kotlin.reflect.KClass
@@ -26,6 +25,8 @@ abstract class AbstractDefaultNotificationModel_back(
         const val KEY_LINK = "link"
         const val KEY_PUSH_TYPE = "push_type"
     }
+
+    abstract protected val icon: Int
 
     protected val _REQUEST_CODE = 0
 
@@ -127,7 +128,7 @@ abstract class AbstractDefaultNotificationModel_back(
         notificationCompatBuilder = NotificationCompat.Builder(context, channelID)
         return notificationCompatBuilder!!.apply {
             setOngoing(true)
-            setSmallIcon(R.mipmap.ic_launcher)
+            setSmallIcon(icon)
             setContentTitle(title)
             setContentText(content)
             setCategory(Notification.CATEGORY_SERVICE)
@@ -149,7 +150,7 @@ abstract class AbstractDefaultNotificationModel_back(
         notificationBuilder = Notification.Builder(context, channelID)
         return notificationBuilder!!.apply {
             setOngoing(true)
-            setSmallIcon(R.mipmap.ic_launcher)
+            setSmallIcon(icon)
             setContentTitle(title)
             setContentText(content)
             setCategory(Notification.CATEGORY_SERVICE)

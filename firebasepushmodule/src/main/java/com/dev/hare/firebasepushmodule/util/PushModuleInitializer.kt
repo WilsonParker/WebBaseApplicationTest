@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import java.util.concurrent.Executors
-import com.dev.hare.hareutilitymodule.data.abstracts.Initializable as Initializable1
+import com.dev.hare.apputilitymodule.data.abstracts.Initializable as Initializable1
 
 object PushModuleInitializer : Initializable1 {
     override fun initialize(context: Context) {

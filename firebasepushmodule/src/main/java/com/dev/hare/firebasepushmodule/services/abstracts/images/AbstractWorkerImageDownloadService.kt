@@ -6,9 +6,9 @@ import androidx.work.*
 import com.dev.hare.firebasepushmodule.worker.DownloadImageWorker
 import com.dev.hare.firebasepushmodule.worker.NotifyWorker
 import com.dev.hare.firebasepushmodule.worker.WorkerConstants
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 
-abstract class AbstractWorkerImageDownloadService<activity : Activity> : AbstractBackgroundImageDownloadService<activity>() {
+abstract class AbstractWorkerImageDownloadService<activity : Activity> : AbstractForegroundImageDownloadService<activity>() {
 
     /**
      * Worker 를 생성하여 이미지를 다운로드 받고 Notification 을 설정합니다

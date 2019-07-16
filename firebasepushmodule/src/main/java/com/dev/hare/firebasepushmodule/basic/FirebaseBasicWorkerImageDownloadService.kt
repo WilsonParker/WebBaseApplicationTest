@@ -2,6 +2,7 @@ package com.dev.hare.firebasepushmodule.basic
 
 import android.app.PendingIntent
 import android.content.Context
+import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.example.ExampleMainActivity
 import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
 import com.dev.hare.firebasepushmodule.models.NotificationDataModel
@@ -10,6 +11,7 @@ import com.dev.hare.firebasepushmodule.services.abstracts.images.AbstractWorkerI
 import kotlin.reflect.KClass
 
 class FirebaseBasicWorkerImageDownloadService : AbstractWorkerImageDownloadService<ExampleMainActivity>() {
+    override val icon = R.mipmap.ic_launcher
     override val activityClass: KClass<ExampleMainActivity>
         get() = ExampleMainActivity::class
     override val _channelID = "FirebasePushModule_ID"

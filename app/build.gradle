@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.dev.hare.webbaseapplicationtest"
+        applicationId "com.dev.hare.daisowebviewtest"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.2.1"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -21,7 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -39,14 +42,24 @@ dependencies {
     // implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.1'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    // https://github.com/ParkSangGwon/TedPermission
+    implementation 'gun0912.ted:tedpermission:2.2.2'
 
-    implementation project(':firebasepushmodule')
+    // API
+    // https://square.github.io/retrofit/
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    // https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation project(':firebasepushmodule')
     implementation project(':webbasetemplatemodule')
     implementation project(':socialloginmodule')
     // implementation files('libs/naveridlogin_android_sdk_4.2.5.aar')
-    implementation project(':hareutilitymodule')
+    implementation project(':apputilitymodule')
 
     implementation 'androidx.multidex:multidex:2.0.1'
     testImplementation 'junit:junit:4.13-beta-3'

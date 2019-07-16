@@ -1,8 +1,8 @@
 package com.dev.hare.socialloginmodule.application
 
-import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.multidex.MultiDexApplication
 import com.dev.hare.socialloginmodule.adapter.KakaoSDKAdapter
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
@@ -13,7 +13,7 @@ import com.toast.android.paycologin.PaycoLoginManager
 import com.toast.android.paycologin.PaycoLoginManagerConfiguration
 
 
-open class GlobalApplication : Application() {
+open class GlobalApplication : MultiDexApplication() {
     companion object {
         private var instance: GlobalApplication? = null
         fun getGlobalApplicationContext(): GlobalApplication {

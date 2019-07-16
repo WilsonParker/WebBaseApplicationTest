@@ -3,7 +3,7 @@ package com.dev.hare.firebasepushmodule.basic
 import com.dev.hare.firebasepushmodule.http.abstracts.AbstractCallService
 import com.dev.hare.firebasepushmodule.http.interfaces.MobileManageable
 import com.dev.hare.firebasepushmodule.http.model.HttpResultModel
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

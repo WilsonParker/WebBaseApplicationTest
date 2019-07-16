@@ -14,6 +14,7 @@ abstract class AbstractFacebookActivity : AbstractSocialActivity() {
         const val REQUEST_CODE = 0x0012
     }
 
+    override val socialName: String = "facebook"
     private val callbackManager: CallbackManager = CallbackManager.Factory.create()
     protected abstract val loginCallback: FacebookCallback1<LoginResult>
 

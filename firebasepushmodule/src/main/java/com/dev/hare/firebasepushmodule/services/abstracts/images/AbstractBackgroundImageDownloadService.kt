@@ -2,8 +2,8 @@ package com.dev.hare.firebasepushmodule.services.abstracts.images
 
 import android.app.Activity
 import android.graphics.Bitmap
-import com.dev.hare.hareutilitymodule.util.Logger
-import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
+import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.img.ImageUtilUsingThread
 
 abstract class AbstractBackgroundImageDownloadService<activity : Activity> : AbstractImageDownloadService<activity>() {
 

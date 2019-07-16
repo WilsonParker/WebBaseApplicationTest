@@ -7,19 +7,20 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import com.dev.hare.firebasepushmodule.R
 import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
 import com.dev.hare.firebasepushmodule.models.NotificationDataModel
 import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
-import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
+import com.dev.hare.apputilitymodule.util.img.ImageUtilUsingThread
 import com.google.firebase.messaging.RemoteMessage
 import kotlin.reflect.KClass
 
 abstract class AbstractImageDownloadService<activity : Activity> : Service() {
+
     companion object {
         const val KEY_URL = AbstractDefaultNotificationModel.Key.IMAGE_URL
         const val KEY_REMOTE_MESSAGE = "msg"
-        const val _REQUEST_CODE = 0
+        const val KEY_LINK = "link"
+        const val _REQUEST_CODE = 0x0010
         const val CHANNEL_ID = 1
         var model: AbstractDefaultNotificationModel? = null
     }
@@ -27,6 +28,7 @@ abstract class AbstractImageDownloadService<activity : Activity> : Service() {
     abstract protected val _channelID: String
     abstract protected val _channelName: String
     abstract protected val activityClass: KClass<activity>
+    abstract protected val icon: Int
 
     protected var url: String? = null
     protected var data: Map<String, String>? = null
@@ -66,8 +68,10 @@ abstract class AbstractImageDownloadService<activity : Activity> : Service() {
      * @added 28/03/2019
      * @updated 09/05/2019
      * */
-    fun createDefaultPendingIntent(activity: KClass<out Activity>): PendingIntent {
-        var intent = Intent(this, activity.java)
+    fun createDefaultPendingIntent(activity: KClass<out Activity>, link:String? = ""): PendingIntent {
+        var intent = Intent(this, activity.java).apply {
+            putExtra(KEY_LINK, link)
+        }
         return PendingIntent.getActivity(
             this,
             _REQUEST_CODE,
@@ -77,13 +81,13 @@ abstract class AbstractImageDownloadService<activity : Activity> : Service() {
     }
 
     protected fun createNotificationModel(data: Map<String, String>?): AbstractDefaultNotificationModel {
-        var pendingIntent = createDefaultPendingIntent(activityClass)
         var dataModel = NotificationDataModel(this, _channelID, _channelName, data)
+        var pendingIntent = createDefaultPendingIntent(activityClass, dataModel?.link)
         var builderModel = NotificationBuilderModel(this, _channelID).apply {
             // dataModel.title?.let { setContentTitle(it) }
             // dataModel.content?.let { setContentText(it) }
             // setSubText()
-            setSmallIcon(R.mipmap.ic_launcher)
+            setSmallIcon(icon)
             setAutoCancel(true)
             setPriority(Notification.PRIORITY_MAX)
             setContentIntent(pendingIntent)

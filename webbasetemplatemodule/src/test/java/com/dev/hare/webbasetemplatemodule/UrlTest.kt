@@ -2,6 +2,8 @@ package com.dev.hare.webbasetemplatemodule
 
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 import org.junit.Test
+import java.net.URLDecoder
+import java.net.URLEncoder
 import java.util.regex.Pattern
 
 
@@ -167,6 +169,7 @@ class UrlTest {
         println(UrlUtil.extractCurrentDomain(host))
         println(UrlUtil.extractCurrentDomain(host, true))
         println("isNewWindow ${isNewWindow(host, url)}")
+        println("isNewWindow ${UrlUtil.isCurrentHost(host, url)}")
         println("==============================")
 
         host = local
@@ -194,6 +197,14 @@ class UrlTest {
         println("==============================")
     }
 
+    @Test
+    fun testNewWindow2(){
+        var host = "http://mobile-enter6.dv9163.kro.kr"
+        var url = "https://nid.naver.com/oauth2.0/authorize?client_id=r7G9pOSDDv7vfTssOmyw&redirect_uri=http%3A%2F%2Fmobile-enter6.dv9163.kro.kr%2Fauth%2Fsocial%2Fnaver%2Fcallback&scope=&response_type=code&state=oaA1rEmpSMLv6wJhmPbptydGHCDpOLk7tOKIxj5d"
+
+
+    }
+
     private fun isNewWindow(host:String, url:String) :Boolean{
         return if(UrlUtil.isCurrentDomain(APP_URL, host)){
             println("isCurrentDomain in")
@@ -202,5 +213,30 @@ class UrlTest {
             println("isCurrentDomain out")
             !UrlUtil.isCurrentDomain(host, url.toString(), false)
         }
+    }
+
+    @Test
+    fun testSocialNewWindow(){
+        var kakaoUrl = "https://kauth.kakao.com/oauth/authorize?redirect_uri=kakaojs&response_type=code&state=f82mzzd2tiwyculmodnad&proxy=easyXDM_Kakao_vs54wjm66sf_provider&ka=sdk%2F1.30.0%20os%2Fjavascript%20lang%2Fko-KR%20device%2FLinux_armv8l%20origin%2Fhttp%253A%252F%252Fmobile-test.enter6.co.kr&origin=http%3A%2F%2Fmobile-test.enter6.co.kr&client_id=cfd4decb1e8d0513607def7581724a4b"
+        println(!UrlUtil.isCurrentDomain(APP_URL, kakaoUrl, false))
+        println(kakaoUrl.contains("/auth/social"))
+    }
+
+    @Test
+    fun testNiceNewWindow() {
+        var host = "http://mobile-test.enter6.co.kr/"
+        var url = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb?m=auth_main"
+
+        println("isNewWindow ${UrlUtil.isCurrentDomain(host, url, false)}")
+        println("isNewWindow ${UrlUtil.isCurrentDomain(APP_URL, host)}")
+    }
+
+    @Test
+    fun testEncodingUrl() {
+        var url = " https://kauth.kakao.com/oauth/authorize?redirect_uri=kakaojs&response_type=code&state=zq4mvn56k9enheswsydfrr&proxy=easyXDM_Kakao_9fnfp6awnjm_provider&ka=sdk%2F1.30.0%20os%2Fjavascript%20lang%2Fko-KR%20device%2FLinux_armv8l%20origin%2Fhttp%253A%252F%252Fmobile-enter6.dv9163.kro.kr&origin=http%3A%2F%2Fmobile-enter6.dv9163.kro.kr&client_id=cfd4decb1e8d0513607def7581724a4b"
+        var encode = URLEncoder.encode( url, "UTF-8");
+        var decode = URLDecoder.decode( url, "UTF-8");
+        println(encode)
+        println(decode)
     }
 }

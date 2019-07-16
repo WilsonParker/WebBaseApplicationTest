@@ -3,7 +3,7 @@ package com.dev.hare.webbasetemplatemodule.util
 import android.content.Context
 
 object PreferenceUtil {
-    private val SHARED_PREFERENCES_NAME = "WebBaseApplicationTest"
+    private val SHARED_PREFERENCES_NAME = "WebBaseTemplatePreference"
 
     fun setData(context: Context, key: String, contentsCode: String): Boolean {
         val editor = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()

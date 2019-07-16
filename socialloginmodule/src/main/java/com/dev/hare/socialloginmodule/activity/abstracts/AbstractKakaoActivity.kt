@@ -1,7 +1,7 @@
 package com.dev.hare.socialloginmodule.activity.abstracts
 
 import android.content.Intent
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 import com.kakao.auth.AuthType
 import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
@@ -16,6 +16,7 @@ abstract class AbstractKakaoActivity : AbstractSocialActivity() {
         const val REQUEST_CODE = 0x0011
     }
 
+    override val socialName: String = "kakao"
     protected abstract val logoutCallback: LogoutResponseCallback
     protected abstract val unLinkCallback: UnLinkResponseCallback
 
@@ -66,6 +67,7 @@ abstract class AbstractKakaoActivity : AbstractSocialActivity() {
         override fun onSessionOpenFailed(exception: KakaoException?) {
             if (exception != null) {
                 Logger.log(Logger.LogType.ERROR, "onSessionOpenFailed", exception.message + "")
+                finish()
             }
         }
     }

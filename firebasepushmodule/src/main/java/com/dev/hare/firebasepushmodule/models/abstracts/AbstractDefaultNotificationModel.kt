@@ -10,7 +10,7 @@ import com.dev.hare.firebasepushmodule.models.NotificationBigTextStyleModel
 import com.dev.hare.firebasepushmodule.models.NotificationBuilderModel
 import com.dev.hare.firebasepushmodule.models.NotificationDataModel
 import com.dev.hare.firebasepushmodule.models.interfaces.NotificationBuildable
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 
 abstract class AbstractDefaultNotificationModel(
     private val context: Context,

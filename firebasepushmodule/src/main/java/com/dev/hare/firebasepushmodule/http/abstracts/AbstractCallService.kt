@@ -9,6 +9,7 @@ abstract class AbstractCallService<service : Any> {
     protected abstract val retrofitCallableClass: KClass<service>
     protected val retrofit: Retrofit = Retrofit.Builder().apply {
         baseUrl(baseUrl)
+        // client(OkHttpClient())
         addConverterFactory(GsonConverterFactory.create())
     }.build()
     protected val pushService: service = retrofit.create(retrofitCallableClass.java)

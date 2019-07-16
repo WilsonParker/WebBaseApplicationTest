@@ -5,8 +5,8 @@ import android.app.Notification
 import android.graphics.Bitmap
 import android.os.Build
 import com.dev.hare.firebasepushmodule.models.abstracts.AbstractDefaultNotificationModel
-import com.dev.hare.hareutilitymodule.util.Logger
-import com.dev.hare.hareutilitymodule.util.img.ImageUtilUsingThread
+import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.img.ImageUtilUsingThread
 
 abstract class AbstractForegroundImageDownloadService<activity : Activity> : AbstractImageDownloadService<activity>() {
 

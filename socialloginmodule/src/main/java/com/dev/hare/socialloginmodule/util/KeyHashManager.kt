@@ -45,4 +45,30 @@ object KeyHashManager {
 
         return keyHash
     }
+
+    fun getKeyHashWithSha1(sha1: ByteArray): String {
+        var example = byteArrayOf(
+            0xFB.toByte(),
+            0x7E.toByte(),
+            0x27.toByte(),
+            0xFE.toByte(),
+            0x3E.toByte(),
+            0x36.toByte(),
+            0x11.toByte(),
+            0x7D.toByte(),
+            0x89.toByte(),
+            0x2A.toByte(),
+            0x6F.toByte(),
+            0x5A.toByte(),
+            0x9E.toByte(),
+            0xB1.toByte(),
+            0xA0.toByte(),
+            0x9B.toByte(),
+            0x21.toByte(),
+            0x2B.toByte(),
+            0x30.toByte(),
+            0x05.toByte()
+        )
+        return Base64.encodeToString(sha1, Base64.NO_WRAP)
+    }
 }

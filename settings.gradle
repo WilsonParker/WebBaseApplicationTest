@@ -1,1 +1,1 @@
-include ':app', ':firebasepushmodule', ':webbasetemplatemodule', ':socialloginmodule', ':hareutilitymodule'
+include ':app', ':firebasepushmodule', ':webbasetemplatemodule', ':socialloginmodule', ':apputilitymodule'

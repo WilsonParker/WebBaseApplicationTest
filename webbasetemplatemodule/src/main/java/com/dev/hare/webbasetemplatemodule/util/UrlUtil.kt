@@ -25,13 +25,23 @@ object UrlUtil {
     }
 
     /**
-     * sub domain 을 모두 지우는 정규식 입니다
+     * sub domain 을 matching 하는 정규식 입니다
      *
      * @author     Hare
      * @added      2019-06-03
      * @updated    2019-06-03
      * */
-    val preAllHost = "^(https?)?(://)?([\\w-_]*.)?"
+    private val regPreAllHost = "^(https?)?(://)?([\\w-_]*.)?"
+
+    /**
+     * Domain 뒤의 path 부분을 matching 하는 정규식 입니다
+     *
+     * @author     Hare
+     * @added      2019-06-25
+     * @updated    2019-06-25
+     * */
+    private val regPath = "^(https?)?(://)?([\\w-_.])+(:[\\d]*)?"
+
     /**
      * 설정한 sub domain 을 지우는 정규식 입니다
      *
@@ -41,10 +51,11 @@ object UrlUtil {
      * @added      2019-06-04
      * @updated    2019-06-04
      * */
-    var preHost =""
+    var regPreHost = ""
         get() {
             return "^(https?)?(://)?(($subDomain)+\\.)?"
         }
+
 
     /**
      * Url 을 분리시키는 pattern 입니다
@@ -125,7 +136,7 @@ object UrlUtil {
 
     /**
      * host 를 추출합니다
-     * ex) http://www.facebook.com/auth/ogin -> facebook.com/auth/login
+     * ex) http://www.facebook.com/auth/login -> facebook.com/auth/login
      *
      * @param      url
      * @return     String
@@ -135,6 +146,37 @@ object UrlUtil {
      * */
     fun extractCurrentHost(url: String): String {
         return extractLastSlashUrl(url).replace("""(https?)?(://)?""".toRegex(), "")
+    }
+
+    /**
+     * path 를 추출합니다
+     * ex) http://www.facebook.com/auth/login -> /auth/login
+     *
+     * @param       url: String
+     * @return      String
+     * @author      Hare
+     * @added       2019-06-25
+     * @updated     2019-06-25
+     * */
+    fun extractPath(url: String): String {
+        return extractLastSlashUrl(url).replace(regPath.toRegex(), "")
+    }
+
+    /**
+     * query 를 제외한 path 를 추출합니다
+     * ex) http://www.facebook.com/auth/login -> /auth/login
+     *
+     * @param       url: String
+     * @return      String
+     * @author      Hare
+     * @added       2019-06-25
+     * @updated     2019-06-25
+     * */
+    fun extractPathExceptQuery(url: String): String {
+        var extractUrl = extractPath(url)
+        return if (extractUrl.indexOf("?") > 0)
+            extractUrl.substring(0, extractUrl.indexOf("?"))
+        else extractUrl
     }
 
     /**
@@ -152,11 +194,14 @@ object UrlUtil {
      * */
     fun extractCurrentDomain(url: String, deep: Boolean = false): String {
         val matcher = urlPattern.matcher(appendLastSlashUrl(url))
-        val reg = (if (deep) "$preAllHost" else "$preHost").toRegex()
+        val reg = (if (deep) "$regPreAllHost" else "$regPreHost").toRegex()
         return if (matcher.matches())
             extractLastSlashUrl(matcher.group(2)).replace(reg, "")
         else extractLastSlashUrl(url).replace(reg, "")
     }
 
+    fun isSameUrl(t1: String, t2: String): Boolean {
+        return extractLastSlashUrl(t1) == extractLastSlashUrl(t2)
+    }
 
 }

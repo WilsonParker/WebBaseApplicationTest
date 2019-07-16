@@ -41,6 +41,7 @@ abstract class BaseIntroActivity : BaseActivity() {
         Glide.with(this)
             .load(imageUrl)
             .transition(DrawableTransitionOptions.withCrossFade())
+            .timeout(5000)
             .apply(options)
             .apply(RequestOptions.skipMemoryCacheOf(true))
             .thumbnail(0.5f)

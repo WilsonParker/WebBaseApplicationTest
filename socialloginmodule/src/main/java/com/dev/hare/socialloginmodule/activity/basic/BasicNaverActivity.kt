@@ -1,12 +1,12 @@
 package com.dev.hare.socialloginmodule.activity.basic
 
 import android.os.AsyncTask
-import com.dev.hare.hareutilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractNaverActivity
 import com.nhn.android.naverlogin.OAuthLogin
 
 
-class BasicNaverActivity : AbstractNaverActivity() {
+open class BasicNaverActivity : AbstractNaverActivity() {
     override fun unLink() {
         DeleteTokenTask().execute()
     }
@@ -36,4 +36,7 @@ class BasicNaverActivity : AbstractNaverActivity() {
         }
     }
 
+    override fun redirectUrl(): String{
+         return "/auth/social/naver/callback?${getRedirectUrlParam()}"
+    }
 }

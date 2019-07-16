@@ -12,6 +12,8 @@ interface WebViewCommand {
 
     fun newWindow(url: Uri):Boolean
 
+    fun newWindowWithRequest(url: Uri):Boolean
+
     fun newApplication(url: Uri):Boolean
 
 }

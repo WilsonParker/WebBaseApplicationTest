@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".activity.WindowActivity">
 
-    <com.dev.hare.webbaseapplicationtest.web.CustomWebView
+    <com.dev.hare.daisowebviewtest.web.CustomWebView
             android:id="@+id/window_webview"
             android:layout_width="0dp"
             android:layout_height="0dp"

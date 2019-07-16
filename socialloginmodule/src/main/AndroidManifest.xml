@@ -12,6 +12,7 @@
                   android:theme="@style/com_toast_android_paycologin_theme_paycologin"
                   android:screenOrientation="portrait" />
         <!-- //[PaycoLoginLib] 인증관련 세팅 -->
+
     </application>
 
 </manifest>
