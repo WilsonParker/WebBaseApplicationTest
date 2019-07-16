@@ -1,4 +1,4 @@
-package com.dev.hare.hareutilitymodule;
+package com.dev.hare.apputilitymodule;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.dev.hare.hareutilitymodule.test", appContext.getPackageName());
+        assertEquals("com.dev.hare.apputilitymodule.test", appContext.getPackageName());
     }
 }
