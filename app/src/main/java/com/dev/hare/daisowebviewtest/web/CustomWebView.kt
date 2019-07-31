@@ -13,9 +13,11 @@ import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.apputilitymodule.util.file.PreferenceUtil
 import com.dev.hare.daisowebviewtest.activity.WindowActivity
 import com.dev.hare.daisowebviewtest.constants.URL_KEY
+import com.dev.hare.daisowebviewtest.util.iNIPay.INIPayUtility
+import com.dev.hare.webbasetemplatemodule.util.UrlUtil
+import com.dev.hare.webbasetemplatemodule.web.BaseWebChromeClient
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
-import com.example.user.webviewproject.net.BaseWebChromeClient
-import com.example.user.webviewproject.net.BaseWebViewClient
+import com.dev.hare.webbasetemplatemodule.web.BaseWebViewClient
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 
@@ -57,6 +59,8 @@ class CustomWebView(context: Context, attrs: AttributeSet?) : BaseWebView<Window
                 url?.let {
                     // var funResult = if (!defaultLoadingUrl(activity, url)) nicePayLoadingUrl(activity, view, url) else false
                     result = defaultLoadingUrl(activity, url)
+                    if(!result)
+                        result = INIPayUtility.shouldOverrideUrlLoading(activity, this@CustomWebView, url)
                 }
                 return if (!result)
                     super.shouldOverrideUrlLoading(view, url)
@@ -153,7 +157,7 @@ class CustomWebView(context: Context, attrs: AttributeSet?) : BaseWebView<Window
                 })
                 return true
             }
-            url.startsWith("sms:")-> {
+            url.startsWith("sms:") -> {
                 activity.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse(url)))
                 return true
             }
@@ -168,6 +172,14 @@ class CustomWebView(context: Context, attrs: AttributeSet?) : BaseWebView<Window
         val clipData = ClipData.newPlainText("label", link)
         clipboardManager.primaryClip = clipData
         Toast.makeText(context, "클립보드에 복사되었습니다", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun historyBack(url: String, host: String, event: () -> Unit) {
+        when {
+            UrlUtil.isSameUrl(host, url) -> event()
+            canGoBack() -> goBack()
+            else -> event()
+        }
     }
 
 }

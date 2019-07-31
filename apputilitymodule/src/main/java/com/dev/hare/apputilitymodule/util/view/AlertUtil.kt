@@ -1,4 +1,4 @@
-package com.dev.hare.webbasetemplatemodule.util.view
+package com.dev.hare.apputilitymodule.util.view
 
 import android.app.Activity
 import android.content.Context

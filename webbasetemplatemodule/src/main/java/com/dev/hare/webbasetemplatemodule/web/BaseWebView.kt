@@ -8,11 +8,9 @@ import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
+import com.dev.hare.apputilitymodule.util.VersionChecker
 import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
-import com.dev.hare.webbasetemplatemodule.util.VersionChecker
-import com.example.user.webviewproject.net.BaseWebChromeClient
-import com.example.user.webviewproject.net.BaseWebViewClient
 
 abstract class BaseWebView<Activity : BaseWindowActivity> : WebView {
     constructor(context: Context?) : super(context)
@@ -31,7 +29,7 @@ abstract class BaseWebView<Activity : BaseWindowActivity> : WebView {
         @SuppressLint("JavascriptInterface")
         set(value) {
             field = value
-            addJavascriptInterface(value, "android")
+            addJavascriptInterface(value, "app_android")
         }
 
     init {
@@ -126,7 +124,7 @@ abstract class BaseWebView<Activity : BaseWindowActivity> : WebView {
         }
     }
 
-    fun historyBack(url: String, host: String, event: () -> Unit) {
+    open fun historyBack(url: String, host: String, event: () -> Unit) {
         if (UrlUtil.isSameUrl(host, url)) {
             event()
         } else if (UrlUtil.isCurrentDomain(host, url) && canGoBack()) {

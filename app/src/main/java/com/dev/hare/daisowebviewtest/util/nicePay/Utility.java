@@ -1,4 +1,4 @@
-package com.dev.hare.daisowebviewtest.util.NicePay;
+package com.dev.hare.daisowebviewtest.util.nicePay;
 
 import android.app.AlertDialog;
 import android.content.Context;

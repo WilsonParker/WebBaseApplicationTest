@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
-import com.example.user.webviewproject.net.listener.WebViewCommand
+import com.dev.hare.webbasetemplatemodule.web.interfaces.WebViewCommand
 import kotlin.reflect.KClass
 
 open class BaseWebViewCommand<activity : Activity>(

@@ -1,4 +1,4 @@
-package com.dev.hare.daisowebviewtest.util.NicePay;
+package com.dev.hare.daisowebviewtest.util.nicePay;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -68,7 +68,7 @@ public class WebViewActivity extends Activity {
            * @updated     2019-06-22
            * */
         bridge = new AndroidBridge(this, mWebView);
-        mWebView.addJavascriptInterface(bridge, "android");
+        mWebView.addJavascriptInterface(bridge, "app_android");
 
         // Webview 설정 - javascript 허용
         mWebView.getSettings().setJavaScriptEnabled(true);

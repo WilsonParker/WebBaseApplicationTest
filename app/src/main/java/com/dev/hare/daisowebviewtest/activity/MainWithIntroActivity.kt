@@ -1,16 +1,23 @@
 package com.dev.hare.daisowebviewtest.activity
 
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.view.BackPressUtil
 import com.dev.hare.daisowebviewtest.R
 import com.dev.hare.daisowebviewtest.constants.APP_URL
-import com.dev.hare.daisowebviewtest.util.NicePayUtility
+import com.dev.hare.daisowebviewtest.util.iNIPay.INIPayUtility
+import com.dev.hare.daisowebviewtest.util.nicePay.NicePayUtility
 import com.dev.hare.daisowebviewtest.web.AndroidBridge
 import com.dev.hare.daisowebviewtest.web.CustomWebView
+import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractSocialActivity
 import com.dev.hare.webbasetemplatemodule.activity.BaseMainWithIntroImageActivity
@@ -78,6 +85,7 @@ class MainWithIntroActivity : BaseMainWithIntroImageActivity() {
                         FirebaseUtil.resetToken()
                     }
                 }*/
+                HttpConstantModel.token = token
             }
         })
         // Logger.log(Logger.LogType.INFO, "keyhash", "" + KeyHashManager.getKeyHash(this))
@@ -125,4 +133,54 @@ class MainWithIntroActivity : BaseMainWithIntroImageActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        Logger.log(Logger.LogType.INFO, "WEBVIEW NEW WINDOW ${webview.url}")
+        webview.run {
+            historyBack(host, url) {
+                BackPressUtil.onBackPressed(this@MainWithIntroActivity) { (mainWebView?.javascriptBrideInterface as AndroidBridge).showPopUp() }
+            }
+        }
+    }
+
+    override fun onCreateDialog(id: Int): Dialog? {//ShowDialog
+        when (id) {
+            INIPayUtility.DIALOG_PROGRESS_WEBVIEW -> {
+                val dialog = ProgressDialog(this)
+                dialog.setMessage("로딩중입니다. \n잠시만 기다려주세요.")
+                dialog.isIndeterminate = true
+                dialog.setCancelable(true)
+                return dialog
+            }
+
+            INIPayUtility.DIALOG_PROGRESS_MESSAGE -> {
+            }
+
+            INIPayUtility.DIALOG_ISP -> {
+                INIPayUtility.alertIsp = AlertDialog.Builder(this@MainWithIntroActivity)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("알림")
+                    .setMessage("모바일 ISP 어플리케이션이 설치되어 있지 않습니다. \n설치를 눌러 진행 해 주십시요.\n취소를 누르면 결제가 취소 됩니다.")
+                    .setPositiveButton("설치") { dialog, which ->
+                        val ispUrl = "http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"
+                        mainWebView?.loadUrl(ispUrl)
+                        finish()
+                    }
+                    .setNegativeButton("취소") { dialog, which ->
+                        Toast.makeText(this@MainWithIntroActivity, "(-1)결제를 취소 하셨습니다.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    .create()
+
+                return INIPayUtility.alertIsp
+            }
+
+            INIPayUtility.DIALOG_CARDAPP -> return INIPayUtility.getCardInstallAlertDialog(
+                this@MainWithIntroActivity,
+                INIPayUtility.DIALOG_CARDNM
+            )
+        }//end switch
+
+        return super.onCreateDialog(id)
+
+    }//end onCreateDialog
 }

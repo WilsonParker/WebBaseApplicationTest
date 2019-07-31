@@ -1,10 +1,10 @@
 package com.dev.hare.webbasetemplatemodule.activity
 
 import android.os.Bundle
+import com.dev.hare.apputilitymodule.util.view.AlertUtil
 import com.dev.hare.webbasetemplatemodule.R
 import com.dev.hare.webbasetemplatemodule.util.CommonUtil
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
-import com.dev.hare.webbasetemplatemodule.util.view.AlertUtil
 import kotlin.reflect.KClass
 
 /**

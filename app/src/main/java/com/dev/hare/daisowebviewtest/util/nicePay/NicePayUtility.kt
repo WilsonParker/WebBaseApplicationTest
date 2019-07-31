@@ -1,4 +1,4 @@
-package com.dev.hare.daisowebviewtest.util
+package com.dev.hare.daisowebviewtest.util.nicePay
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -179,7 +179,11 @@ object NicePayUtility {
         Log.i("NICE", "resVal : $resVal")
 
         if ("091" == resCode) {//계좌이체 결제를 취소한 경우
-            AlertDialog("인증 오류", "계좌이체 결제를 취소하였습니다.", activity)
+            AlertDialog(
+                "인증 오류",
+                "계좌이체 결제를 취소하였습니다.",
+                activity
+            )
             webView.postUrl(MERCHANT_URL, null)
         } else if ("060" == resCode) {
             AlertDialog("인증 오류", "타임아웃", activity)

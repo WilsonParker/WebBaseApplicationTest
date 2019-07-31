@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface DownloadHistoryManageable {
 
-    @GET("/mobile/insertDownloadHistory")
+    @GET("/apps/insertDownloadHistory")
     fun insertDownloadHistory(@Query("os_type") os_type: String, @Query("api_key") api_key: String): Call<HttpResultModel>
 }

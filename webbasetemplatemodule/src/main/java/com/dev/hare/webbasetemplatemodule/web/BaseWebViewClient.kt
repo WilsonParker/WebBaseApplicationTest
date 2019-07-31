@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.net
+package com.dev.hare.webbasetemplatemodule.web
 
 import android.app.AlertDialog
 import android.net.Uri
@@ -8,7 +8,6 @@ import android.webkit.*
 import androidx.annotation.RequiresApi
 import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
-import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
 import java.net.URL
 
 open class BaseWebViewClient<Activity : BaseWindowActivity>(private val _webViewBaseCommand: BaseWebViewCommand<Activity>?) :

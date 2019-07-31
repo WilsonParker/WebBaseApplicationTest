@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.util
+package com.dev.hare.webbasetemplatemodule.util
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
@@ -15,6 +15,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.annotation.RequiresApi
 import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.RealPathUtil
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.util
+package com.dev.hare.apputilitymodule.util
 
 import android.annotation.SuppressLint
 import android.content.ContentUris

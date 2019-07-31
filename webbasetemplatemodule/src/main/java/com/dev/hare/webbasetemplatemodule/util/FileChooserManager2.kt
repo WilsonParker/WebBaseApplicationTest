@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.util
+package com.dev.hare.webbasetemplatemodule.util
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -18,10 +18,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.dev.hare.apputilitymodule.util.RealPathUtil
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 object FileChooserManager2 {
     private const val TYPE_IMAGE = "image/*"

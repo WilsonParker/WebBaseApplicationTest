@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.net
+package com.dev.hare.webbasetemplatemodule.web
 
 import android.app.Activity
 import android.app.Dialog
@@ -14,15 +14,18 @@ import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import com.dev.hare.webbasetemplatemodule.activity.BaseWindowActivity
-import com.dev.hare.webbasetemplatemodule.web.BaseWebView
-import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
-import com.example.user.webviewproject.util.FileChooserManagerRenewer as FCManager3
+import com.dev.hare.webbasetemplatemodule.util.FileChooserManagerRenewer
 
 open class BaseWebChromeClient<activity : BaseWindowActivity>(
     private val context: Context,
-    private val webViewBaseCommand: BaseWebViewCommand<activity>?
+    private val webViewBaseCommand: BaseWebViewCommand<activity>?,
+    private val createWindowType: WindowType = WindowType.AddNewWindow
 ) :
     WebChromeClient() {
+
+    enum class WindowType {
+        AddNewWindow, NewActivity, AddNewDialog
+    }
 
     override fun onCreateWindow(
         view: WebView?,
@@ -30,7 +33,11 @@ open class BaseWebChromeClient<activity : BaseWindowActivity>(
         isUserGesture: Boolean,
         resultMsg: Message?
     ): Boolean {
-        return addNewWindow(view, isDialog, isUserGesture, resultMsg)
+        return when (createWindowType) {
+            WindowType.AddNewWindow -> addNewWindow(view, isDialog, isUserGesture, resultMsg)
+            WindowType.NewActivity -> newActivity(view, isDialog, isUserGesture, resultMsg)
+            WindowType.AddNewDialog -> addNewDialog(view, isDialog, isUserGesture, resultMsg)
+        }
     }
 
     /*override fun onCloseWindow(window: WebView?) {
@@ -47,10 +54,10 @@ open class BaseWebChromeClient<activity : BaseWindowActivity>(
         filePathCallback: ValueCallback<Array<Uri>>?,
         fileChooserParams: FileChooserParams
     ): Boolean {
-        return FCManager3.onShowFileChooser(webView, filePathCallback, fileChooserParams, context as Activity)
+        return FileChooserManagerRenewer.onShowFileChooser(webView, filePathCallback, fileChooserParams, context as Activity)
     }
 
-    protected fun createNewWindow(
+    protected fun newActivity(
         view: WebView?,
         isDialog: Boolean,
         isUserGesture: Boolean,

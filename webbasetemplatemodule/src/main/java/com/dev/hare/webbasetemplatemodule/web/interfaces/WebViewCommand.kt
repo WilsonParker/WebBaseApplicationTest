@@ -1,4 +1,4 @@
-package com.example.user.webviewproject.net.listener
+package com.dev.hare.webbasetemplatemodule.web.interfaces
 
 import android.net.Uri
 

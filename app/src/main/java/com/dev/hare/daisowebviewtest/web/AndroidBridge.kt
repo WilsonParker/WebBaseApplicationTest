@@ -16,10 +16,8 @@ import com.dev.hare.daisowebviewtest.social.BasicPaycoActivity
 import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.socialloginmodule.activity.abstracts.*
-import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
-import com.dev.hare.webbasetemplatemodule.web.BaseWebViewCommand
-import com.example.user.webviewproject.net.BaseWebViewClient
+import com.dev.hare.webbasetemplatemodule.web.BaseWebViewClient
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 
@@ -40,14 +38,6 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
     @JavascriptInterface
     fun logOut() {
         Logger.log(Logger.LogType.INFO, "logout")
-    }
-
-    @JavascriptInterface
-    fun setPushAgreement(agreement: Boolean) {
-        Logger.log(Logger.LogType.INFO, "setPushAgreement : $agreement")
-        BasicTokenCallService.updateTokenWithAgreement(agreement) { result ->
-            Logger.log(Logger.LogType.INFO, "setPushAgreement : ${result.toString()}")
-        }
     }
 
     @JavascriptInterface
@@ -79,6 +69,15 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
     }
 
     @JavascriptInterface
+    fun setPushAgreement(agreement: Boolean) {
+        Logger.log(Logger.LogType.INFO, "setPushAgreement : $agreement")
+        /*BasicTokenCallService.updateTokenWithAgreement(agreement) { result ->
+            Logger.log(Logger.LogType.INFO, "setPushAgreement : ${result.toString()}")
+        }*/
+
+    }
+
+    @JavascriptInterface
     fun kakaoLogin() {
         val it = Intent(activity, BasicKakaoActivity::class.java)
         it.putExtra(AbstractSocialActivity.ACTION_TYPE, AbstractSocialActivity.ActionType.LogIn)
@@ -93,15 +92,6 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
     }
 
     @JavascriptInterface
-    fun confirmNaverLogin() {
-        mainWebView?.run {
-            post {
-                loadUrl("javascript:confirmNaverSocialBind()")
-            }
-        }
-    }
-
-    @JavascriptInterface
     fun facebookLogin() {
         val it = Intent(activity, BasicFacebookActivity::class.java)
         it.putExtra(AbstractSocialActivity.ACTION_TYPE, AbstractSocialActivity.ActionType.LogIn)
@@ -113,22 +103,6 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
         val it = Intent(activity, BasicPaycoActivity::class.java)
         it.putExtra(AbstractSocialActivity.ACTION_TYPE, AbstractSocialActivity.ActionType.LogIn)
         activity.startActivityForResult(it, AbstractPaycoActivity.REQUEST_CODE)
-    }
-
-    @JavascriptInterface
-//    fun joinFinish() {
-    fun finishCallback() {
-        Logger.log(Logger.LogType.INFO, "finishCallback")
-        mainWebView?.post {
-            mainWebView?.url?.let {
-                Logger.log(Logger.LogType.INFO, "$it")
-                activity.setResult(Activity.RESULT_OK, Intent().apply {
-                    putExtra(BaseWebViewCommand.KEY_RESULT, true)
-                    putExtra(BaseWebViewCommand.KEY_CALLBACK, UrlUtil.extractPathExceptQuery(it))
-                })
-                activity.finish()
-            }
-        }
     }
 
     @JavascriptInterface
@@ -154,23 +128,21 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
         }
     }
 
+    // DAISO BRIDGE
     @JavascriptInterface
-    fun finishAndHomeWithMessage(message: String) {
-        Logger.log(Logger.LogType.INFO, "finishAndHomeWithMessage")
-        webView?.post {
-            webView.loadUrl("javascript:mm.bom.alert(\"$message\", function() { cm.web.bridge.getAndroid().finishAndHome(); })")
-        }
+    fun send_auto_login() {
+        webView.loadUrl("javascript:send_auto_login('${HttpConstantModel.token}')")
     }
 
     @JavascriptInterface
-    fun agree() {
-        Logger.log(Logger.LogType.INFO, "agree")
-        webView.loadUrl("javascript:agree()")
+    fun requestToken() {
+        Logger.log(Logger.LogType.INFO, "requestToken")
+        webView.loadUrl("javascript:responseToken('${HttpConstantModel.token}')")
     }
 
     @JavascriptInterface
-    fun goBack() {
-        Logger.log(Logger.LogType.INFO, "goBack")
-        webView.loadUrl("javascript:goBack()")
+    fun showPopUp() {
+        Logger.log(Logger.LogType.INFO, "showPopUp")
+        webView.loadUrl("javascript:showPopup()")
     }
 }

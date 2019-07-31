@@ -2,7 +2,7 @@ package com.dev.hare.apputilitymodule.util.img
 
 import android.graphics.Bitmap
 import android.os.AsyncTask
-import com.dev.hare.firebasepushmodule.exception.ExceptionUtil
+import com.dev.hare.apputilitymodule.exception.ExceptionUtil
 
 class ImageUtilUsingThread : ImageUtil() {
     protected var onImageLoadCompleteListener: OnImageLoadCompleteListener? = null

@@ -3,17 +3,16 @@ package com.dev.hare.webbasetemplatemodule.activity
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.target.Target
+import com.dev.hare.apputilitymodule.util.view.AlertUtil
 import com.dev.hare.webbasetemplatemodule.util.CommonUtil
 import com.dev.hare.webbasetemplatemodule.util.IntroLoader
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
-import com.dev.hare.webbasetemplatemodule.util.view.AlertUtil
 
 abstract class BaseMainWithIntroImageActivity : BaseWebActivity() {
     abstract val introImageID: Int

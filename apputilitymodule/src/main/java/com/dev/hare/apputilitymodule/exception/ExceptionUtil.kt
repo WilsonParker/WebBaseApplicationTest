@@ -1,4 +1,4 @@
-package com.dev.hare.firebasepushmodule.exception
+package com.dev.hare.apputilitymodule.exception
 
 import com.dev.hare.apputilitymodule.exception.interfaces.ExceptionHandler
 

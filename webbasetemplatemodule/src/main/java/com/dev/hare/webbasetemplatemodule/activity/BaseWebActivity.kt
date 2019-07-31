@@ -4,10 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import com.dev.hare.apputilitymodule.util.Logger
-import com.dev.hare.webbasetemplatemodule.util.view.BackPressUtil
+import com.dev.hare.apputilitymodule.util.view.BackPressUtil
+import com.dev.hare.webbasetemplatemodule.util.FileChooserManagerRenewer
 import kotlinx.android.synthetic.main.activity_window.*
 import kotlin.reflect.KClass
-import com.example.user.webviewproject.util.FileChooserManagerRenewer as FCManager3
 
 abstract class BaseWebActivity: BaseActivity() {
     protected abstract val windowActivity:KClass<BaseWindowActivity>
@@ -28,7 +28,7 @@ abstract class BaseWebActivity: BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            FCManager3.onActivityResult(requestCode, resultCode, data, this) { requestCode: Int, resultCode: Int, data: Intent? ->
+            FileChooserManagerRenewer.onActivityResult(requestCode, resultCode, data, this) { requestCode: Int, resultCode: Int, data: Intent? ->
                 super.onActivityResult(requestCode, resultCode, data)
             }
         } else {

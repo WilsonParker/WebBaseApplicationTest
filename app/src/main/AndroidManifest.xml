@@ -44,7 +44,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="entersixshop://"/>
+                <data android:scheme="daisomall://"/>
                 <data
                         android:scheme="@string/kakao_scheme"
                         android:host="@string/kakaolink_host"/>
@@ -55,7 +55,7 @@
                 android:screenOrientation="portrait"
                 />
         <activity
-                android:name=".util.NicePay.WebViewActivity"
+                android:name=".util.nicePay.WebViewActivity"
                 android:screenOrientation="portrait"
                 />
 
