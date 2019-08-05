@@ -8,7 +8,6 @@ import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.daisowebviewtest.activity.MainWithIntroActivity
 import com.dev.hare.daisowebviewtest.activity.MainWithIntroActivity.Companion.mainWebView
 import com.dev.hare.daisowebviewtest.activity.WindowActivity
-import com.dev.hare.daisowebviewtest.push.BasicTokenCallService
 import com.dev.hare.daisowebviewtest.social.BasicFacebookActivity
 import com.dev.hare.daisowebviewtest.social.BasicKakaoActivity
 import com.dev.hare.daisowebviewtest.social.BasicNaverActivity
@@ -28,9 +27,6 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
     fun logIn(user_code: String) {
         Logger.log(Logger.LogType.INFO, "usercode : $user_code")
         Logger.log(Logger.LogType.INFO, "token_sequence : ${HttpConstantModel.token_sequence}")
-        BasicTokenCallService.updateTokenWithUserCode(user_code) { result ->
-            Logger.log(Logger.LogType.INFO, "updateTokenWithUserCode : ${result.toString()}")
-        }
         if (HttpConstantModel.token_sequence == -1)
             FirebaseUtil.resetToken()
     }

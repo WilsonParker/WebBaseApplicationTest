@@ -1,0 +1,31 @@
+# 구글 플레이스토어 정보
+daisomallad@gmail.com
+ekdlthahf2sp
+
+# 안드로이드 KeyStore 정보
+KEY_ALIAS = smheo0401
+KEY_PASS = seongmin
+STORE_PASS = shin0606
+
+ 
+
+ - 다이소 (아래 계정은 에이전트 계정)
+    ID: app_dev@daisomall.co.kr
+    PW: m@lld2vApp
+
+    ID: cjpark@daisomall.co.kr
+    PW: D@is0mall
+
+
+ID : nameternity@gmail.com
+PWD : Eter1206$
+
+키사이닝 비번 shin0606, seongmin
+
+id : nameter@daisomall.co.kr
+pwd : Eter1206
+
+
+아이폰 ( 푸쉬 패스워드 동일 )
+ID : app_dev@daisomall.co.kr
+PWD : Eter1206 입니다.
