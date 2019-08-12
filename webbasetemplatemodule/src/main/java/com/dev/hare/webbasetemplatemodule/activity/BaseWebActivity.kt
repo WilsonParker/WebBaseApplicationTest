@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 abstract class BaseWebActivity: BaseActivity() {
     protected abstract val windowActivity:KClass<BaseWindowActivity>
 
-    override fun onBackPressed() {
+    fun onWebBackPressed(oneClickCallback: () -> Unit) {
         webview.run {
             Logger.log(Logger.LogType.INFO, "onBackPressed $url ; $host")
             /*if (isCurrentDomain(url, host) && canGoBack()) {
@@ -21,7 +21,9 @@ abstract class BaseWebActivity: BaseActivity() {
                 BackPressUtil.onBackPressed(this@BaseWebActivity) { super.onBackPressed() }
             }*/
             historyBack(host, url) {
-                BackPressUtil.onBackPressed(this@BaseWebActivity) { super.onBackPressed() }
+                BackPressUtil.onBackPressed(this@BaseWebActivity,
+                    oneClickCallback,
+                    { onBackPressed() })
             }
         }
     }

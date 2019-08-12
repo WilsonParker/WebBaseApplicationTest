@@ -5,7 +5,7 @@ import com.dev.hare.apputilitymodule.data.abstracts.Initializable
 import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.apputilitymodule.util.file.PreferenceUtil
 import com.dev.hare.daisowebviewtest.R
-import com.dev.hare.daisowebviewtest.constants.SHOW_LOG
+import com.dev.hare.daisowebviewtest.constants.Constants.SHOW_LOG
 
 object Initializer : Initializable {
     override fun initialize(context: Context) {

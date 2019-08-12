@@ -29,7 +29,7 @@ abstract class BaseWebView<Activity : BaseWindowActivity> : WebView {
         @SuppressLint("JavascriptInterface")
         set(value) {
             field = value
-            addJavascriptInterface(value, "app_android")
+            addJavascriptInterface(value, "android")
         }
 
     init {

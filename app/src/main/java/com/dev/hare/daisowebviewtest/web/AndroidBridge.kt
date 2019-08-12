@@ -15,6 +15,7 @@ import com.dev.hare.daisowebviewtest.social.BasicPaycoActivity
 import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.socialloginmodule.activity.abstracts.*
+import com.dev.hare.webbasetemplatemodule.util.CommonUtil
 import com.dev.hare.webbasetemplatemodule.web.BaseWebView
 import com.dev.hare.webbasetemplatemodule.web.BaseWebViewClient
 import com.gun0912.tedpermission.PermissionListener
@@ -102,7 +103,7 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
     }
 
     @JavascriptInterface
-    fun finish() {
+    fun activityFinish() {
         Logger.log(Logger.LogType.INFO, "Finish")
         if (activity !is MainWithIntroActivity)
             activity.finish()
@@ -117,28 +118,47 @@ class AndroidBridge(val activity: Activity, private val webView: BaseWebView<Win
         mainWebView?.post {
             mainWebView?.customWebViewClient?.addOnPageFinishCallback(object : BaseWebViewClient.OnPageFinishListener {
                 override fun onPageFinish() {
-                    finish()
+                    activityFinish()
                 }
             })
             mainWebView?.home()
         }
     }
 
+    @JavascriptInterface
+    fun finish() {
+        activity.finish()
+    }
+
     // DAISO BRIDGE
     @JavascriptInterface
     fun send_auto_login() {
-        webView.loadUrl("javascript:send_auto_login('${HttpConstantModel.token}')")
+        webView?.post {
+            webView.loadUrl("javascript:send_auto_login('${HttpConstantModel.token}')")
+        }
     }
 
     @JavascriptInterface
     fun requestToken() {
         Logger.log(Logger.LogType.INFO, "requestToken")
-        webView.loadUrl("javascript:responseToken('${HttpConstantModel.token}')")
+        webView?.post {
+            webView.loadUrl("javascript:responseToken('${HttpConstantModel.token}')")
+        }
+    }
+
+    @JavascriptInterface
+    fun requestDeviceId() {
+        Logger.log(Logger.LogType.INFO, "requestDeviceId")
+        webView?.post {
+            webView.loadUrl("javascript:responseDeviceId('${CommonUtil.getDeviceUUID(webView.context)}')")
+        }
     }
 
     @JavascriptInterface
     fun showPopUp() {
         Logger.log(Logger.LogType.INFO, "showPopUp")
-        webView.loadUrl("javascript:showPopup()")
+        webView?.post {
+            webView.loadUrl("javascript:showPopup()")
+        }
     }
 }

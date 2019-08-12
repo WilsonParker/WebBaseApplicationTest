@@ -12,7 +12,9 @@ import android.widget.Toast
 import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.apputilitymodule.util.view.BackPressUtil
 import com.dev.hare.daisowebviewtest.R
-import com.dev.hare.daisowebviewtest.constants.APP_URL
+import com.dev.hare.daisowebviewtest.constants.Constants.APP_URL
+import com.dev.hare.daisowebviewtest.constants.Constants.IMG_URL
+import com.dev.hare.daisowebviewtest.push.BasicMobileCallService
 import com.dev.hare.daisowebviewtest.util.iNIPay.INIPayUtility
 import com.dev.hare.daisowebviewtest.util.nicePay.NicePayUtility
 import com.dev.hare.daisowebviewtest.web.AndroidBridge
@@ -52,11 +54,10 @@ class MainWithIntroActivity : BaseMainWithIntroImageActivity() {
      * @TODO introImage 주석 처리
      */
     override fun init() {
-        /*BasicMobileCallService.getIntroImageUrl {
+        BasicMobileCallService.getIntroImageUrl {
             Logger.log(Logger.LogType.INFO, "getIntroImageUrl : ${it.toString()}")
             loadIntro(IMG_URL + it?.data?.get("url").toString())
-        }*/
-        loadIntro("")
+        }
     }
 
     override fun onCreateInit(savedInstanceState: Bundle?) {
@@ -137,7 +138,11 @@ class MainWithIntroActivity : BaseMainWithIntroImageActivity() {
         Logger.log(Logger.LogType.INFO, "WEBVIEW NEW WINDOW ${webview.url}")
         webview.run {
             historyBack(host, url) {
-                BackPressUtil.onBackPressed(this@MainWithIntroActivity) { (mainWebView?.javascriptBrideInterface as AndroidBridge).showPopUp() }
+                BackPressUtil.onBackPressed(this@MainWithIntroActivity, {
+                    (mainWebView?.javascriptBrideInterface as AndroidBridge).showPopUp()
+                }, {
+                    finish();
+                })
             }
         }
     }

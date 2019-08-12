@@ -12,7 +12,7 @@ import android.widget.Toast
 import com.dev.hare.apputilitymodule.util.Logger
 import com.dev.hare.apputilitymodule.util.file.PreferenceUtil
 import com.dev.hare.daisowebviewtest.activity.WindowActivity
-import com.dev.hare.daisowebviewtest.constants.URL_KEY
+import com.dev.hare.daisowebviewtest.constants.Constants.URL_KEY
 import com.dev.hare.daisowebviewtest.util.iNIPay.INIPayUtility
 import com.dev.hare.webbasetemplatemodule.util.UrlUtil
 import com.dev.hare.webbasetemplatemodule.web.BaseWebChromeClient

@@ -1,8 +1,8 @@
 package com.dev.hare.daisowebviewtest.push
 
 import com.dev.hare.apputilitymodule.util.Logger
-import com.dev.hare.daisowebviewtest.constants.API_KEY
-import com.dev.hare.daisowebviewtest.constants.APP_API_URL
+import com.dev.hare.daisowebviewtest.constants.Constants.API_KEY
+import com.dev.hare.daisowebviewtest.constants.Constants.APP_API_URL
 import com.dev.hare.daisowebviewtest.push.interfaces.MobileManageable
 import com.dev.hare.firebasepushmodule.http.abstracts.AbstractCallService
 import com.dev.hare.firebasepushmodule.http.model.HttpResultModel

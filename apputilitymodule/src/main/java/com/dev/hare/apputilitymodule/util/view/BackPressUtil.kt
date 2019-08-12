@@ -9,20 +9,21 @@ object BackPressUtil {
     private var lastPressTime: Long = 0
     private var toast :Toast? = null
 
-    fun onBackPressed(context: Context, callback: () -> Unit) {
+    fun onBackPressed(context: Context, oneClickCallback: () -> Unit, closeCallback: () -> Unit) {
         if(toast == null) toast = Toast.makeText(context, "한번 더 누르시면 종료합니다", Toast.LENGTH_SHORT)
 
         lastPressTime = if (isPressed) lastPressTime else System.currentTimeMillis()
         if (lastPressTime + AllowPressTime > System.currentTimeMillis()) {
+            oneClickCallback()
             toast?.show()
             if (isPressed) {
-                callback()
+                closeCallback()
             } else {
                 isPressed = true
             }
         } else {
             isPressed = false
-            onBackPressed(context, callback)
+            onBackPressed(context, oneClickCallback, closeCallback)
         }
     }
 }

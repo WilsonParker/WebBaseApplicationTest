@@ -55,7 +55,7 @@ object INIPayUtility {
                         .show()
                 }
 
-//finish();
+//activityFinish();
             }
             .setNegativeButton("취소") { dialog, which ->
                 Toast.makeText(activity, "(-1)결제를 취소 하셨습니다.", Toast.LENGTH_SHORT).show()
@@ -95,7 +95,7 @@ object INIPayUtility {
 	    			    삼성카드 기타 안심클릭에서는 종료되면 안되기 때문에
 	    			    조건을 걸어 종료하도록 하였습니다.*/
                 if (url.startsWith("ispmobile://")) {
-                    // activity.finish()
+                    // activity.activityFinish()
                 }
 
             } catch (e: ActivityNotFoundException) {
