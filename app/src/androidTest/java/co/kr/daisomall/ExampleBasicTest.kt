@@ -4,6 +4,7 @@ import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.dev.hare.apputilitymodule.util.VersionChecker
 import com.dev.hare.webbasetemplatemodule.util.CommonUtil
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -20,9 +21,12 @@ class ExampleBasicTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         // assertEquals("co.kr.daisomall", appContext.packageName)
 
+        println(appContext.packageName)
         println(VersionChecker.getMarketVersion(appContext.packageName))
         println(VersionChecker.getMarketVersionFast(appContext.packageName))
         println(VersionChecker.getVersionInfo(appContext))
         println(CommonUtil.getDeviceUUID(appContext))
+
+        Assert.assertEquals("co.kr.daisomall", appContext.packageName)
     }
 }

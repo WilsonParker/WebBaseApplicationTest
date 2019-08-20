@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "547937239501",
+    "firebase_url": "https://daisomall-7c677.firebaseio.com",
+    "project_id": "daisomall-7c677",
+    "storage_bucket": "daisomall-7c677.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547937239501:android:45bd0eb6bbb24359",
+        "android_client_info": {
+          "package_name": "co.kr.daisomall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547937239501-j0ljea54vr98glsc0tenf67kpbfeqi49.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDulDspyP6WfEA5P-8yskKZEe_rl17Hbac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547937239501-j0ljea54vr98glsc0tenf67kpbfeqi49.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

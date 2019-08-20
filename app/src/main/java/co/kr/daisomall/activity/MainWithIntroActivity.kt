@@ -9,16 +9,17 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import com.dev.hare.apputilitymodule.util.Logger
-import com.dev.hare.apputilitymodule.util.view.BackPressUtil
 import co.kr.daisomall.R
 import co.kr.daisomall.constants.Constants.APP_URL
 import co.kr.daisomall.constants.Constants.IMG_URL
 import co.kr.daisomall.push.BasicMobileCallService
+import co.kr.daisomall.push.BasicTokenCallService
 import co.kr.daisomall.util.iNIPay.INIPayUtility
 import co.kr.daisomall.util.nicePay.NicePayUtility
 import co.kr.daisomall.web.AndroidBridge
 import co.kr.daisomall.web.CustomWebView
+import com.dev.hare.apputilitymodule.util.Logger
+import com.dev.hare.apputilitymodule.util.view.BackPressUtil
 import com.dev.hare.firebasepushmodule.http.model.HttpConstantModel
 import com.dev.hare.firebasepushmodule.util.FirebaseUtil
 import com.dev.hare.socialloginmodule.activity.abstracts.AbstractSocialActivity
@@ -54,6 +55,7 @@ class MainWithIntroActivity : BaseMainWithIntroImageActivity() {
      * @TODO introImage 주석 처리
      */
     override fun init() {
+        BasicTokenCallService.tokenRefresh(this)
         BasicMobileCallService.getIntroImageUrl {
             Logger.log(Logger.LogType.INFO, "getIntroImageUrl : ${it.toString()}")
             loadIntro(IMG_URL + it?.data?.get("url").toString())
