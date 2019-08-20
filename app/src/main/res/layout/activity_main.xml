@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:visibility="invisible"
             >
-        <com.dev.hare.daisowebviewtest.web.CustomWebView
+        <co.kr.daisomall.web.CustomWebView
                 android:id="@+id/webview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

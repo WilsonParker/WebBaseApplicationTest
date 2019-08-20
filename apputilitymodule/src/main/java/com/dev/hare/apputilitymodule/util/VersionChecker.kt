@@ -3,7 +3,6 @@ package com.dev.hare.apputilitymodule.util
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import com.dev.hare.apputilitymodule.util.Logger
 import org.jsoup.Jsoup
 import java.io.BufferedReader
 import java.io.IOException
@@ -35,6 +34,10 @@ object VersionChecker {
         }
 
         return null
+    }
+
+    fun getMarketVersion(context: Context): String? {
+       return getMarketVersion(context.packageName)
     }
 
     /**
@@ -86,6 +89,10 @@ object VersionChecker {
         }
 
         return mVer
+    }
+
+    fun getMarketVersionFast(context: Context): String? {
+        return getMarketVersionFast(context.packageName)
     }
 
     fun getVersionInfo(context: Context?): String {

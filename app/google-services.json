@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "863002581406",
-    "firebase_url": "https://webbasetemplateapplicationtest.firebaseio.com",
-    "project_id": "webbasetemplateapplicationtest",
-    "storage_bucket": "webbasetemplateapplicationtest.appspot.com"
+    "project_number": "547937239501",
+    "firebase_url": "https://daisomall-7c677.firebaseio.com",
+    "project_id": "daisomall-7c677",
+    "storage_bucket": "daisomall-7c677.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:863002581406:android:820c0012272158aa",
+        "mobilesdk_app_id": "1:547937239501:android:45bd0eb6bbb24359",
         "android_client_info": {
-          "package_name": "com.dev.hare.daisowebviewtest"
+          "package_name": "co.kr.daisomall"
         }
       },
       "oauth_client": [
         {
-          "client_id": "863002581406-1mifn8e3jie2smqqbke20bbsea1lsshv.apps.googleusercontent.com",
+          "client_id": "547937239501-j0ljea54vr98glsc0tenf67kpbfeqi49.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD39d42X53PDCB4jeoajSJPRf7EkuGD0vE"
+          "current_key": "AIzaSyDulDspyP6WfEA5P-8yskKZEe_rl17Hbac"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "863002581406-1mifn8e3jie2smqqbke20bbsea1lsshv.apps.googleusercontent.com",
+              "client_id": "547937239501-j0ljea54vr98glsc0tenf67kpbfeqi49.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
